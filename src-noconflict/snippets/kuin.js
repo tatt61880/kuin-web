@@ -4,9 +4,11 @@ ace.define("ace/snippets/kuin",["require","exports","module"], function(require,
 exports.snippetText = "\n\
 snippet func\n\
 	func ${1:name}()\n\
+		${2}\n\
 	end func\n\
 snippet class\n\
 	class ${1:name}()\n\
+		${2}\n\
 	end class\n\
 snippet enum\n\
 	enum ${1:name}\n\
