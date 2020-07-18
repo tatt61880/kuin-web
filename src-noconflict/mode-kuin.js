@@ -38,7 +38,7 @@ var KuinHighlightRules = function() {
             include: ["block_comment", "line_comment", "string", "char"]
         }, {
             token: "constant.numeric",
-            regex: /\b\d+\.\d+\b/
+            regex: /\b\d+\.\d+(?:e[+-]\d+)?\b/
         }, {
             token: "constant.numeric",
             regex: /\b(?:\d+|0x[\dA-F]+)(?:b(?:8|16|32|64))?\b/
