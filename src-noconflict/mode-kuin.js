@@ -35,7 +35,7 @@ var KuinHighlightRules = function() {
         }],
 
         expr: [{
-            include: ["block_comment", "line_comment", "string", "char"]
+            include: ["block_comment", "line_comment", "string", "character"]
         }, {
             token: "constant.numeric",
             regex: /\b\d+\.\d+(?:e[+-]\d+)?\b/
@@ -59,12 +59,9 @@ var KuinHighlightRules = function() {
             regex: /\s+/
         }],
 
-        char: [{
+        character: [{
             token: "string",
-            regex: /'\\.'/
-        }, {
-            token: "string",
-            regex: /'[^\\]'/
+            regex: /'(?:\\(?:[\\|"|'|0|n|t]|u[0-9A-F]{4})|.)'/,
         }],
 
         string: [{
@@ -75,9 +72,6 @@ var KuinHighlightRules = function() {
             }, {
                 token: "string",
                 regex: /\\\\/,
-            }, {
-                token: "string",
-                regex: /\\"/,
             }, {
                 token: "string",
                 regex: /"|$/,
@@ -96,7 +90,7 @@ var KuinHighlightRules = function() {
             token: "comment",
             regex: /{/,
             push: [{
-                include: ["block_comment", "line_comment", "string", "char"]
+                include: ["block_comment", "line_comment", "string", "character"]
             }, {
                 token: "comment",
                 regex: /}/,
