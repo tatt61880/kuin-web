@@ -31,7 +31,7 @@ var KuinHighlightRules = function() {
             include: "expr"
         }, {
             token: keywordMapper,
-            regex: /[a-zA-Z_][a-zA-Z0-9_]*\b/
+            regex: /\b[a-zA-Z_][a-zA-Z0-9_]*\b/
         }],
 
         expr: [{
