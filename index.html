@@ -1,58 +1,57 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=870">
-	<link rel="icon" href="favicon.ico" type="image/x-icon">
-	<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
-	<link rel="stylesheet" href="common.css" type="text/css">
-	<link rel="stylesheet" href="article.css" type="text/css">
-	<script src="js/kuin_web_ui_20200717.js?1"></script>
-	<title>kuin-web</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=870">
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="common.css" type="text/css">
+  <link rel="stylesheet" href="article.css" type="text/css">
+  <script src="js/kuin_web_ui_20200717.js?1"></script>
+  <title>kuin-web</title>
 </head>
 <body>
 <div id="container" class="pl_pc">
-	<div id="main_ja" class="main">
-		<div id="article">
-		<!-- begin -->
-		<div style="font-size:80%" class="block">
-			<p>※このページは非公式です。 このページのリポジトリはこちら → <a href="https://github.com/tatt61880/kuin-web/">tatt61880/kuin-web - GitHub</a><br>
-				　「Webブラウザ上で コンパイルできるKuin」の公式サイトはこちら → <a href="https://kuina.ch/kuin/web">https://kuina.ch/kuin/web</a>
-			</p>
-			<h5 style="font-size:100%">更新履歴</h5>
-			<ul style="padding-left:2em;font-size:100%" class="weak">
-				<li>スニペット対応</li>
-				<li>シンタックスハイライト対応</li>
-			</ul>
-		</div>
+  <div id="main_ja" class="main">
+    <div id="article">
+      <div style="font-size:80%" class="block">
+        <p>※このページは非公式です。 このページのリポジトリはこちら → <a href="https://github.com/tatt61880/kuin-web/">tatt61880/kuin-web - GitHub</a><br>
+        　「Webブラウザ上で コンパイルできるKuin」の公式サイトはこちら → <a href="https://kuina.ch/kuin/web">https://kuina.ch/kuin/web</a>
+        </p>
+        <h5 style="font-size:100%">更新履歴</h5>
+        <ul style="padding-left:2em;font-size:100%" class="weak">
+          <li>スニペット対応</li>
+          <li>シンタックスハイライト対応</li>
+        </ul>
+      </div>
 
-<pre id="src" style="height: 400px; font-size: 15px;">func main()
+      <div style="width:85%;float:left">
+        <pre id="src" style="height: 400px; font-size: 15px;">func main()
 	do cui@print("100以下の素数を求めるプログラム:\n")
 	for i(2, 100)
 		if(math@prime(i))
 			do cui@print("\{i}\n")
 		end if
 	end for
-end func
-</pre>
+end func</pre>
+      </div>
+      <div class="block" style="text-indent:0;font-size:16px;margin:10px;border:0">
+        <button id="compile" type="button">コンパイル</button><br><br>
+        <label><input name="platform" type="radio" value="run" checked="checked">&nbsp;実行</label><br>
+        <label><input name="platform" type="radio" value="cpp">&nbsp;C++出力</label><br>
+        <!--
+        <label><input name="platform" type="radio" value="web">&nbsp;HTML &amp; JavaScript出力</label><br>
+        -->
+      </div>
 
-		<br>
-		<div style="width:50%;float:left">
-			<div class="block" style="text-indent:0;font-size:16px;margin:5px 0px;border:0">
-				<button id="compile" type="button">コンパイル</button><br><br>
-				<label><input name="platform" type="radio" value="run" checked="checked">&nbsp;実行</label><br>
-				<label><input name="platform" type="radio" value="web">&nbsp;HTML &amp; JavaScript出力</label><br>
-				<label><input name="platform" type="radio" value="cpp">&nbsp;C++出力</label><br>
-			</div>
-			<textarea id="log" style="width:100%;background-color:#ffeff7" cols="40" rows="20" readonly="readonly"></textarea><br>
-		</div>
-		<div style="width:50%;float:left">
-			<textarea id="output" style="width:100%;background-color:#ffeff7" cols="40" rows="30" readonly="readonly"></textarea><br>
-		</div>
-		<!-- end -->
-
-		</div>
-	</div>
+      <div style="width:50%;float:left">
+        <textarea id="log" style="width:100%;background-color:#ffeff7" cols="40" rows="20" readonly="readonly"></textarea><br>
+      </div>
+      <div style="width:50%;float:left">
+        <textarea id="output" style="width:100%;background-color:#ffeff7" cols="40" rows="30" readonly="readonly"></textarea><br>
+      </div>
+    </div>
+  </div>
 </div>
 <script src="src-noconflict/ace.js?2020-07-17"></script>
 <script src="src-noconflict/ext-language_tools.js?2020-07-17"></script>
