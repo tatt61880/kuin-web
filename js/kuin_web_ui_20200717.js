@@ -1,4 +1,5 @@
 "use strict";!function(f){let d=document;function h(){d.removeEventListener("DOMContentLoaded",h);removeEventListener("load",h);f(d)}"complete"===d.readyState||"loading"!==d.readyState&&!d.documentElement.doScroll?setTimeout(f):(d.addEventListener("DOMContentLoaded",h),addEventListener("load",h))}(function(d){
+	let logTypeId = "";
 	let compile = d.getElementById("compile"), log = d.getElementById("log"), output = d.getElementById("output"), included = false;
 	compile.addEventListener("click", function(){
 		let platforms = document.getElementsByName("platform"), platform = null, target = null, write = null, extra = null;
@@ -23,18 +24,18 @@
 		}else
 			return;
 		output.value = "";
-		log.value = "";
+		removeLog();
 		let code = { S: "" };
 		if (!included){
 			included = true;
-			log.value += "スクリプトをロード中。\n";
+			addLog("スクリプトをロード中。");
 			var script = document.createElement("script");
 			script.src = "js/kuin_web_20200717.js";
 			script.onload = function(){
 				if(!this.readyState || this.readyState === "loaded" || this.readyState === "complete"){
-					log.value += "スクリプトがロード完了。\n";
-					 run();
-				 }
+					addLog("スクリプトがロード完了。");
+					run();
+				}
 			};
 			d.getElementsByTagName('head')[0].appendChild(script);
 		}
@@ -51,7 +52,7 @@
 					return null;
 				},
 				writeFile: function(p, s){ write(p, s, code); },
-				print: function(s){ log.value += s; }
+				print: function(s){ addLog(s); }
 			});
 			if(platform === "run")
 				eval(code.S + "out({print:function(s){output.value+=s}});");
@@ -159,8 +160,39 @@
 			return c;
 		}
 	});
-	log.value = "";
+	removeLog();
 	output.value = "";
-	log.addEventListener("focus", function(){ this.select(); } );
+	log.addEventListener("click", selectLog );
 	output.addEventListener("focus", function(){ this.select(); } );
+	
+	function removeLog()
+	{
+		while(log.firstChild){
+			log.removeChild(log.firstChild);
+		}
+	}
+	
+	function addLog(str)
+	{
+		if (str.match(/^0x[\dA-F]{8}: /)) {
+			logTypeId = str;
+		} else if (str.match(/^\[.*\]$/)) {
+			logTypeId += str;
+		} else {
+			let li = document.createElement("li");
+			li.textContent = logTypeId + str;
+			log.appendChild(li);
+			logTypeId = "";
+		}
+	}
+
+	function selectLog(e)
+	{
+		let match;
+		if (match = e.target.textContent.match(/^0x[\dA-F]{8}: \[\\main: (\d+), (\d+)\]/)) {
+			let row = match[1];
+			let column = match[2];
+			editor.navigateTo(row - 1, column - 1);
+		}
+	}
 })

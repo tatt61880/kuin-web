@@ -8,6 +8,13 @@
   <link rel="stylesheet" href="common.css" type="text/css">
   <link rel="stylesheet" href="article.css" type="text/css">
   <script src="js/kuin_web_ui_20200717.js?1"></script>
+  <style>
+#log li {
+  list-style-type:none;
+  padding:5px 10px;
+  border-bottom:1px solid #84b2e0;
+}
+  </style>
   <title>kuin-web</title>
 </head>
 <body>
@@ -20,6 +27,7 @@
         </p>
         <h5 style="font-size:100%">更新履歴</h5>
         <ul style="padding-left:2em;font-size:100%" class="weak">
+          <li>エラーログをクリックすることで該当行に飛ぶ機能追加</li>
           <li>スニペット対応</li>
           <li>シンタックスハイライト対応</li>
         </ul>
@@ -40,7 +48,8 @@ end func</pre>
           <label><input name="platform" type="radio" value="cpp">&nbsp;C++出力</label><br>
           <label><input name="platform" type="radio" value="web">&nbsp;HTML &amp; JavaScript出力</label><br>
         </div>
-        <textarea id="log" style="width:100%;background-color:#ffeff7" cols="40" rows="20" readonly="readonly"></textarea><br>
+        <ul id="log" style="background-color:#ffeff7;">
+        </ul>
       </div>
       <div style="width:50%;float:left">
         <textarea id="output" style="width:100%;background-color:#ffeff7" cols="40" rows="30" readonly="readonly"></textarea><br>
