@@ -25,8 +25,7 @@
         </ul>
       </div>
 
-      <div style="width:85%;float:left">
-        <pre id="src" style="height: 400px; font-size: 15px;">func main()
+      <pre id="src" style="height: 400px; font-size: 15px;">func main()
 	do cui@print("100以下の素数を求めるプログラム:\n")
 	for i(2, 100)
 		if(math@prime(i))
@@ -34,17 +33,13 @@
 		end if
 	end for
 end func</pre>
-      </div>
-      <div class="block" style="text-indent:0;font-size:16px;margin:10px;border:0">
-        <button id="compile" type="button">コンパイル</button><br><br>
-        <label><input name="platform" type="radio" value="run" checked="checked">&nbsp;実行</label><br>
-        <label><input name="platform" type="radio" value="cpp">&nbsp;C++出力</label><br>
-        <!--
-        <label><input name="platform" type="radio" value="web">&nbsp;HTML &amp; JavaScript出力</label><br>
-        -->
-      </div>
-
       <div style="width:50%;float:left">
+        <div class="block" style="text-indent:0;font-size:16px;margin:10px;border:0">
+          <button id="compile" type="button">コンパイル</button><br>
+          <label><input name="platform" type="radio" value="run" checked="checked">&nbsp;実行</label><br>
+          <label><input name="platform" type="radio" value="cpp">&nbsp;C++出力</label><br>
+          <label><input name="platform" type="radio" value="web">&nbsp;HTML &amp; JavaScript出力</label><br>
+        </div>
         <textarea id="log" style="width:100%;background-color:#ffeff7" cols="40" rows="20" readonly="readonly"></textarea><br>
       </div>
       <div style="width:50%;float:left">
