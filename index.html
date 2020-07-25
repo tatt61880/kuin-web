@@ -7,7 +7,7 @@
   <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="common.css" type="text/css">
   <link rel="stylesheet" href="article.css" type="text/css">
-  <script src="js/kuin_web_ui_20200717.js?3"></script>
+  <script src="js/kuin_web_ui_20200717.js?4"></script>
   <style>
 #log li {
   list-style-type:none;
@@ -15,7 +15,7 @@
   border-bottom:1px solid #84b2e0;
 }
   </style>
-  <title>kuin-web</title>
+  <title>KuinWeb</title>
 </head>
 <body>
 <div id="container" class="pl_pc">
@@ -34,7 +34,7 @@
       </div>
 
       <pre id="src" style="height: 400px; font-size: 15px;">func main()
-	do cui@print("100以下の素数を求めるプログラム:\n")
+	do cui@print("100以下の素数を出力するプログラム:\n")
 	for i(2, 100)
 		if(math@prime(i))
 			do cui@print("\{i}\n")
@@ -49,6 +49,10 @@ end func</pre>
             <option value="cpp" label="&nbsp;C++出力">&nbsp;C++出力</option>
             <option value="web" label="&nbsp;HTML &amp; JavaScript出力">&nbsp;HTML &amp; JavaScript出力</option>
           </select>
+          <p style="margin:5px;">
+          (※最後にコンパイルしたソース: <span id="buttonTweet" style="display:inline; margin:5px"></span>)
+          </p>
+          <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs'); </script>
         </div>
         <ul id="log" style="background-color:#ffeff7;">
         </ul>
@@ -62,7 +66,9 @@ end func</pre>
 <script src="src-noconflict/ace.js?2020-07-17"></script>
 <script src="src-noconflict/ext-language_tools.js?2020-07-17"></script>
 <script>
-  var editor = ace.edit("src");
+var editor;
+window.onload = function() {
+  editor = ace.edit("src");
   editor.setTheme("ace/theme/kuin");
   editor.session.setMode("ace/mode/kuin");
   editor.session.setUseSoftTabs(false);
@@ -71,6 +77,24 @@ end func</pre>
     enableSnippets: true,
     enableLiveAutocompletion: true
   });
+
+  {
+    let paravalsStr = location.href.split('?')[1];
+    if (paravalsStr == null) paravalsStr = '';
+    let paravalsArray = paravalsStr.split('&');
+    for (let i = 0; i < paravalsArray.length; i++) {
+      let paraval = paravalsArray[i].split('=');
+      if (paraval.length == 2) {
+        if (paraval[0] == 'src') {
+          let src = decodeURI(paraval[1]);
+          editor.setValue(src);
+          editor.navigateTo(0, 0);
+        }
+      }
+    }
+    updateTweetButton(null);
+  }
+}
 </script>
 </body>
 </html>

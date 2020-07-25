@@ -2,6 +2,9 @@
 	let logTypeId = "";
 	let compile = d.getElementById("compile"), log = d.getElementById("log"), output = d.getElementById("output"), included = false;
 	compile.addEventListener("click", function(){
+		let src = encodeURI(editor.getValue());
+		updateTweetButton(src);
+
 		let platforms = document.getElementById("platform"), target = null, write = null, extra = null;
 		let platform = platforms.options[platforms.selectedIndex].value;
 		if(platform === "run"){
@@ -161,6 +164,7 @@
 	output.value = "";
 	log.addEventListener("click", selectLog );
 	output.addEventListener("focus", function(){ this.select(); } );
+	d.getElementById("src").addEventListener("focus", function(){ d.getElementById('buttonTweet').style.visibility = 'hidden'; } );
 	
 	function removeLog()
 	{
@@ -193,3 +197,25 @@
 		}
 	}
 })
+
+function updateTweetButton(src)
+{
+	let b = document.getElementById('buttonTweet');
+	while (b.firstChild != null) b.removeChild(b.firstChild);
+	let ele = document.createElement('a');
+	ele.setAttribute('href', 'https://twitter.com/share');
+	ele.setAttribute('class', 'twitter-share-button');
+	let title = 'KuinWeb';
+	ele.setAttribute('data-text', title);
+	let href = location.href;
+	let questionPos = href.search('\\?');
+	if (questionPos != -1) {
+		href = href.substr(0, questionPos);
+	}
+	ele.setAttribute('data-url', href + (src === null ? '' : ('?src=' + src)));
+	ele.setAttribute('data-hashtags', 'KuinWeb');
+	ele.appendChild(document.createTextNode('tweet'));
+	b.appendChild(ele);
+
+	twttr.widgets.load();
+}
