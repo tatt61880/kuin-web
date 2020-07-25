@@ -7,7 +7,7 @@
   <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="common.css" type="text/css">
   <link rel="stylesheet" href="article.css" type="text/css">
-  <script src="js/kuin_web_ui_20200717.js?4"></script>
+  <script src="js/kuin_web_ui_20200717.js?5"></script>
   <style>
 #log li {
   list-style-type:none;
@@ -86,7 +86,7 @@ window.onload = function() {
       let paraval = paravalsArray[i].split('=');
       if (paraval.length == 2) {
         if (paraval[0] == 'src') {
-          let src = decodeURI(paraval[1]);
+          let src = decodeURIComponent(paraval[1]);
           editor.setValue(src);
           editor.navigateTo(0, 0);
         }

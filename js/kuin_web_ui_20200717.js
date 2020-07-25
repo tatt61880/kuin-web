@@ -2,7 +2,7 @@
 	let logTypeId = "";
 	let compile = d.getElementById("compile"), log = d.getElementById("log"), output = d.getElementById("output"), included = false;
 	compile.addEventListener("click", function(){
-		let src = encodeURI(editor.getValue());
+		let src = encodeURIComponent(editor.getValue());
 		updateTweetButton(src);
 
 		let platforms = document.getElementById("platform"), target = null, write = null, extra = null;
