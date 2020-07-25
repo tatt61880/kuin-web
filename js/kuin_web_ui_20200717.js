@@ -2,13 +2,8 @@
 	let logTypeId = "";
 	let compile = d.getElementById("compile"), log = d.getElementById("log"), output = d.getElementById("output"), included = false;
 	compile.addEventListener("click", function(){
-		let platforms = document.getElementsByName("platform"), platform = null, target = null, write = null, extra = null;
-		for(let i = 0; i < platforms.length; i++){
-			if(platforms[i].checked){
-				platform = platforms[i].value;
-				break;
-			}
-		}
+		let platforms = document.getElementById("platform"), target = null, write = null, extra = null;
+		let platform = platforms.options[platforms.selectedIndex].value;
 		if(platform === "run"){
 			target = "web";
 			write = function(p, s, c){ if(p === "./out.js") c.S += fromUtf8(s); };
@@ -21,8 +16,10 @@
 			target = "cpp";
 			write = function(p, s, c){ c.S += fromUtf8(s); };
 			extra = ["-x", "merge"];
-		}else
+		}else{
+			window.alert("Unexpected platform.");
 			return;
+		}
 		output.value = "";
 		removeLog();
 		let code = { S: "" };

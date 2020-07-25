@@ -7,7 +7,7 @@
   <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="common.css" type="text/css">
   <link rel="stylesheet" href="article.css" type="text/css">
-  <script src="js/kuin_web_ui_20200717.js?2"></script>
+  <script src="js/kuin_web_ui_20200717.js?3"></script>
   <style>
 #log li {
   list-style-type:none;
@@ -25,7 +25,7 @@
         <p>※このページは非公式です。 このページのリポジトリはこちら → <a href="https://github.com/tatt61880/kuin-web/">tatt61880/kuin-web - GitHub</a><br>
         　「Webブラウザ上で コンパイルできるKuin」の公式サイトはこちら → <a href="https://kuina.ch/kuin/web">https://kuina.ch/kuin/web</a>
         </p>
-        <h5 style="font-size:100%">更新履歴</h5>
+        <h5 style="font-size:100%">主な更新履歴</h5>
         <ul style="padding-left:2em;font-size:100%" class="weak">
           <li>エラーログをクリックすることで該当箇所に飛ぶ機能追加</li>
           <li>(組み込みの)スニペット対応</li>
@@ -43,10 +43,12 @@
 end func</pre>
       <div style="width:50%;float:left">
         <div class="block" style="text-indent:0;font-size:16px;margin:10px;border:0">
-          <button id="compile" type="button">コンパイル</button><br>
-          <label><input name="platform" type="radio" value="run" checked="checked">&nbsp;実行</label><br>
-          <label><input name="platform" type="radio" value="cpp">&nbsp;C++出力</label><br>
-          <label><input name="platform" type="radio" value="web">&nbsp;HTML &amp; JavaScript出力</label><br>
+          <button id="compile" type="button">コンパイル</button>&nbsp;&nbsp;
+          <select id="platform" style="font-size:18px; width:220px; height:30px;">
+            <option value="run" label="&nbsp;実行" selected></option>
+            <option value="cpp" label="&nbsp;C++出力"></option>
+            <option value="web" label="&nbsp;HTML &amp; JavaScript出力"></option>
+          </select>
         </div>
         <ul id="log" style="background-color:#ffeff7;">
         </ul>
