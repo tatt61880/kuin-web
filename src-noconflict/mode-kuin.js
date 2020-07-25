@@ -74,6 +74,9 @@ var KuinHighlightRules = function() {
                 regex: /\\\\/,
             }, {
                 token: "string",
+                regex: /\\"/,
+            }, {
+                token: "string",
                 regex: /"|$/,
                 next: "pop"
             }, {
