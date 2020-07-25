@@ -194,6 +194,7 @@
 			let row = match[1];
 			let column = match[2];
 			editor.navigateTo(row - 1, column - 1);
+			editor.scrollToLine(row, true, true);
 		}
 	}
 })
@@ -205,8 +206,7 @@ function updateTweetButton(src)
 	let ele = document.createElement('a');
 	ele.setAttribute('href', 'https://twitter.com/share');
 	ele.setAttribute('class', 'twitter-share-button');
-	let title = 'KuinWeb';
-	ele.setAttribute('data-text', title);
+	ele.setAttribute('data-text', 'KuinWeb');
 	let href = location.href;
 	let questionPos = href.search('\\?');
 	if (questionPos != -1) {
