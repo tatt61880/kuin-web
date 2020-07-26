@@ -30,7 +30,7 @@
 			included = true;
 			addLog("スクリプトをロード中。");
 			var script = document.createElement("script");
-			script.src = "js/kuin_web_20200717.js";
+			script.src = "js/kuin_web.js";
 			script.onload = function(){
 				if(!this.readyState || this.readyState === "loaded" || this.readyState === "complete"){
 					addLog("スクリプトがロード完了。");
