@@ -8,69 +8,14 @@
   <link rel="stylesheet" href="common.css" type="text/css">
   <link rel="stylesheet" href="article.css" type="text/css">
   <script src="js/kuin_web_ui_20200717.js?6"></script>
-  <style>
-#log li {
-  list-style-type:none;
-  padding:5px 10px;
-  border-bottom:1px solid #84b2e0;
-}
-  </style>
-  <title>KuinWeb</title>
-</head>
-<body>
-<div id="container" class="pl_pc">
-  <div id="main_ja" class="main">
-    <div id="article">
-      <div style="font-size:80%" class="block">
-        <p>※このページは非公式です。 このページのリポジトリはこちら → <a href="https://github.com/tatt61880/kuin-web/">tatt61880/kuin-web - GitHub</a><br>
-        　「Webブラウザ上で コンパイルできるKuin」の公式サイトはこちら → <a href="https://kuina.ch/kuin/web">https://kuina.ch/kuin/web</a>
-        </p>
-        <h5 style="font-size:100%">主な更新履歴</h5>
-        <ul style="padding-left:2em;font-size:100%" class="weak">
-          <li>エラーログをクリックすることで該当箇所に飛ぶ機能追加</li>
-          <li>(組み込みの)スニペット対応</li>
-          <li>シンタックスハイライト対応</li>
-        </ul>
-      </div>
-
-      <pre id="src" style="height: 400px; font-size: 15px;">func main()
-	do cui@print("100以下の素数を出力するプログラム:\n")
-	for i(2, 100)
-		if(math@prime(i))
-			do cui@print("\{i}\n")
-		end if
-	end for
-end func</pre>
-      <div style="width:50%;float:left">
-        <div class="block" style="text-indent:0;font-size:16px;margin:10px;border:0">
-          <button id="compile" type="button">&nbsp;コンパイル&nbsp;</button>&nbsp;&nbsp;
-          <select id="platform" style="font-size:18px; width:250px; height:30px;">
-            <option value="run" label="&nbsp;実行" selected>&nbsp;実行</option>
-            <option value="cpp" label="&nbsp;C++出力">&nbsp;C++出力</option>
-            <option value="web" label="&nbsp;HTML &amp; JavaScript出力">&nbsp;HTML &amp; JavaScript出力</option>
-          </select>
-          <p style="margin:5px;">
-          (※最後にコンパイルしたソース: <span id="buttonTweet" style="display:inline; margin:5px"></span>)
-          </p>
-          <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs'); </script>
-        </div>
-        <ul id="log" style="background-color:#ffeff7;">
-        </ul>
-      </div>
-      <div style="width:50%;float:left">
-        <textarea id="output" style="width:100%;background-color:#ffeff7" cols="40" rows="30" readonly="readonly"></textarea><br>
-      </div>
-    </div>
-  </div>
-</div>
-<script src="src-noconflict/ace.js?2020-07-17"></script>
-<script src="src-noconflict/ext-language_tools.js?2020-07-17"></script>
-<script>
-var editor;
+  <script src="src-noconflict/ace.js?2020-07-17"></script>
+  <script src="src-noconflict/ext-language_tools.js?2020-07-17"></script>
+  <script>
+let editor;
 window.onload = function() {
-  editor = ace.edit("src");
-  editor.setTheme("ace/theme/kuin");
-  editor.session.setMode("ace/mode/kuin");
+  editor = ace.edit('src');
+  editor.setTheme('ace/theme/kuin');
+  editor.session.setMode('ace/mode/kuin');
   editor.session.setUseSoftTabs(false);
   editor.setOptions({
     enableBasicAutocompletion: true,
@@ -97,6 +42,50 @@ window.onload = function() {
     updateTweetButton(null);
   }
 }
-</script>
+  </script>
+  <style>
+#log li {
+  list-style-type:none;
+  padding:5px 10px;
+  border-bottom:1px solid #84b2e0;
+}
+  </style>
+  <title>KuinWeb</title>
+</head>
+<body>
+<div id="container" class="pl_pc">
+<div id="main_ja" class="main">
+  <div id="article">
+    <pre id="src" style="height: 400px; font-size: 15px;">func main()
+	do cui@print("100以下の素数を出力するプログラム:\n")
+	for i(2, 100)
+		if(math@prime(i))
+			do cui@print("\{i}\n")
+		end if
+	end for
+end func</pre>
+    <div style="width:50%;float:left">
+      <div class="block" style="text-indent:0;font-size:16px;margin:10px;border:0">
+        <button id="compile" type="button">&nbsp;コンパイル&nbsp;</button>&nbsp;&nbsp;
+        <select id="platform" style="font-size:18px; width:250px; height:30px;">
+          <option value="run" label="&nbsp;実行" selected>&nbsp;実行</option>
+          <option value="cpp" label="&nbsp;C++出力">&nbsp;C++出力</option>
+          <option value="web" label="&nbsp;HTML &amp; JavaScript出力">&nbsp;HTML &amp; JavaScript出力</option>
+        </select>
+        <p style="margin:5px;">
+        (※最後にコンパイルしたソース: <span id="buttonTweet" style="display:inline; margin:5px"></span>)
+        </p>
+        <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs'); </script>
+      </div>
+      <ul id="log" style="background-color:#ffeff7;">
+      </ul>
+    </div>
+    <div style="width:50%;float:left">
+      <textarea id="output" style="width:100%;background-color:#ffeff7" cols="40" rows="30" readonly="readonly"></textarea><br>
+    </div>
+    <span><a href="./about.html">このサイト (https://tatt61880.github.io/kuin-web/) に関する説明はこちら</a></span>
+  </div>
+</div>
+</div>
 </body>
 </html>
