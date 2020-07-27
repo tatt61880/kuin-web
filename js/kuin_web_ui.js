@@ -106,7 +106,7 @@
 			}
 			return r;
 		}
-		
+
 		function fromUtf8(s)
 		{
 			let r = "", len;
@@ -152,7 +152,7 @@
 			}
 			return r;
 		}
-		
+
 		function concat(a, b)
 		{
 			var c = new Uint8Array(a.length + b.length);
@@ -166,14 +166,14 @@
 	log.addEventListener("click", selectLog );
 	output.addEventListener("focus", function(){ this.select(); } );
 	d.getElementById("src").addEventListener("focus", function(){ d.getElementById('buttonTweet').style.visibility = 'hidden'; } );
-	
+
 	function removeLog()
 	{
 		while(log.firstChild){
 			log.removeChild(log.firstChild);
 		}
 	}
-	
+
 	function addLog(str)
 	{
 		if (str.match(/^0x[\dA-F]{8}: /)) {
@@ -216,7 +216,7 @@
 		ele.setAttribute('data-hashtags', 'KuinWeb');
 		ele.appendChild(document.createTextNode('tweet'));
 		b.appendChild(ele);
-		
+
 		twttr.widgets.load();
 	}
 
@@ -231,7 +231,8 @@
 			enableSnippets: true,
 			enableLiveAutocompletion: true,
 			fontSize: '14px',
-			maxLines: 40,
+			minLines: 10,
+			maxLines: 35,
 		});
 
 		{
