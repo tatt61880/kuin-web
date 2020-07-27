@@ -5,8 +5,9 @@
 		let src = encodeURIComponent(editor.getValue());
 		updateTweetButton(src);
 
-		let platforms = document.getElementById("platform"), target = null, write = null, extra = null;
+		let platforms = document.getElementById("platform");
 		let platform = platforms.options[platforms.selectedIndex].value;
+		let target = null, write = null, extra = null;
 		if(platform === "run"){
 			target = "web";
 			write = function(p, s, c){ if(p === "./out.js") c.S += fromUtf8(s); };
@@ -30,7 +31,7 @@
 			included = true;
 			addLog("スクリプトをロード中。");
 			var script = document.createElement("script");
-			script.src = "js/kuin.js?20200727";
+			script.src = "js/kuin.js?2020-07-27";
 			script.onload = function(){
 				if(!this.readyState || this.readyState === "loaded" || this.readyState === "complete"){
 					addLog("スクリプトがロード完了。");
@@ -197,25 +198,57 @@
 			editor.scrollToLine(row, true, true);
 		}
 	}
-})
 
-function updateTweetButton(src)
-{
-	let b = document.getElementById('buttonTweet');
-	while (b.firstChild != null) b.removeChild(b.firstChild);
-	let ele = document.createElement('a');
-	ele.setAttribute('href', 'https://twitter.com/share');
-	ele.setAttribute('class', 'twitter-share-button');
-	ele.setAttribute('data-text', 'KuinWeb');
-	let href = location.href;
-	let questionPos = href.search('\\?');
-	if (questionPos != -1) {
-		href = href.substr(0, questionPos);
+	function updateTweetButton(src)
+	{
+		let b = document.getElementById('buttonTweet');
+		while (b.firstChild != null) b.removeChild(b.firstChild);
+		let ele = document.createElement('a');
+		ele.setAttribute('href', 'https://twitter.com/share');
+		ele.setAttribute('class', 'twitter-share-button');
+		ele.setAttribute('data-text', 'KuinWeb');
+		let href = location.href;
+		let questionPos = href.search('\\?');
+		if (questionPos != -1) {
+			href = href.substr(0, questionPos);
+		}
+		ele.setAttribute('data-url', href + (src === null ? '' : ('?src=' + src)));
+		ele.setAttribute('data-hashtags', 'KuinWeb');
+		ele.appendChild(document.createTextNode('tweet'));
+		b.appendChild(ele);
+		
+		twttr.widgets.load();
 	}
-	ele.setAttribute('data-url', href + (src === null ? '' : ('?src=' + src)));
-	ele.setAttribute('data-hashtags', 'KuinWeb');
-	ele.appendChild(document.createTextNode('tweet'));
-	b.appendChild(ele);
 
-	twttr.widgets.load();
-}
+	let editor;
+	window.onload = function() {
+		editor = ace.edit('src');
+		editor.setTheme('ace/theme/kuin');
+		editor.session.setMode('ace/mode/kuin');
+		editor.session.setUseSoftTabs(false);
+		editor.setOptions({
+			enableBasicAutocompletion: true,
+			enableSnippets: true,
+			enableLiveAutocompletion: true,
+			fontSize: '14px',
+			maxLines: 40,
+		});
+
+		{
+			let paravalsStr = location.href.split('?')[1];
+			if (paravalsStr == null) paravalsStr = '';
+			let paravalsArray = paravalsStr.split('&');
+			for (let i = 0; i < paravalsArray.length; i++) {
+				let paraval = paravalsArray[i].split('=');
+				if (paraval.length == 2) {
+					if (paraval[0] == 'src') {
+						let src = decodeURIComponent(paraval[1]);
+						editor.setValue(src);
+						editor.navigateTo(0, 0);
+					}
+				}
+			}
+			updateTweetButton(null);
+		}
+	}
+})

@@ -7,46 +7,14 @@
   <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="common.css" type="text/css">
   <link rel="stylesheet" href="article.css" type="text/css">
-  <script src="js/kuin_web_ui.js?2020-07-27"></script>
+  <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
   <script src="src-noconflict/ace.js?2020-07-17"></script>
   <script src="src-noconflict/ext-language_tools.js?2020-07-17"></script>
-  <script>
-let editor;
-window.onload = function() {
-  editor = ace.edit('src');
-  editor.setTheme('ace/theme/kuin');
-  editor.session.setMode('ace/mode/kuin');
-  editor.session.setUseSoftTabs(false);
-  editor.setOptions({
-    enableBasicAutocompletion: true,
-    enableSnippets: true,
-    enableLiveAutocompletion: true,
-    fontSize: '14px',
-    maxLines: 40,
-  });
-
-  {
-    let paravalsStr = location.href.split('?')[1];
-    if (paravalsStr == null) paravalsStr = '';
-    let paravalsArray = paravalsStr.split('&');
-    for (let i = 0; i < paravalsArray.length; i++) {
-      let paraval = paravalsArray[i].split('=');
-      if (paraval.length == 2) {
-        if (paraval[0] == 'src') {
-          let src = decodeURIComponent(paraval[1]);
-          editor.setValue(src);
-          editor.navigateTo(0, 0);
-        }
-      }
-    }
-    updateTweetButton(null);
-  }
-}
-  </script>
+  <script src="js/kuin_web_ui.js?2020-07-27_2"></script>
   <style>
 #log li {
   list-style-type:none;
-  padding:5px 10px;
+  padding:3px 10px;
   border-bottom:1px solid #84b2e0;
 }
   </style>
@@ -75,7 +43,6 @@ end func</pre>
         <p style="margin:5px;">
         (※最後にコンパイルしたソース: <span id="buttonTweet" style="display:inline; margin:5px"></span>)
         </p>
-        <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs'); </script>
       </div>
       <ul id="log" style="background-color:#ffeff7;">
       </ul>
