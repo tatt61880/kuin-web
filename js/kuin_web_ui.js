@@ -183,6 +183,11 @@
 		} else {
 			let li = document.createElement("li");
 			li.textContent = logTypeId + str;
+			if (logTypeId.match(/^0x0003/)) {
+				li.style.backgroundColor = '#f5f5f5';
+			} else {
+				li.style.backgroundColor = '#ffeff7';
+			}
 			log.appendChild(li);
 			logTypeId = "";
 		}
