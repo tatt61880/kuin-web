@@ -31,7 +31,7 @@
 			included = true;
 			addLog("スクリプトをロード中。");
 			var script = document.createElement("script");
-			script.src = "js/kuin.js?2020-07-27";
+			script.src = "js/kuin.js?2020-08-17";
 			script.onload = function(){
 				if(!this.readyState || this.readyState === "loaded" || this.readyState === "complete"){
 					addLog("スクリプトがロード完了。");
