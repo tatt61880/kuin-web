@@ -182,7 +182,7 @@ oop.inherits(Mode, TextMode);
             return;
         }
 
-        session.outdentRows(new Range(row, 0, row + 2, 0));
+        session.outdentRows(new Range(row, 0, row + 1, 0));
     };
 
     this.$id = "ace/mode/kuin";
