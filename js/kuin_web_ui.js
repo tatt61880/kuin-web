@@ -56,8 +56,8 @@
 		if (!included) {
 			included = true;
 			addLog('スクリプトをロード中。');
-			var script = document.createElement('script');
-			script.src = 'js/kuin.js?2020-08-17';
+			let script = document.createElement('script');
+			script.src = 'js/kuin.js?2021-04-17';
 			script.onload = function() {
 				if (!this.readyState || this.readyState === 'loaded' || this.readyState === 'complete') {
 					addLog('スクリプトがロード完了。');
@@ -75,7 +75,7 @@
 					['-i', 'main.kn', '-s', 'res/sys/', '-e', target].concat(extra),
 				readFile:
 					function(p) {
-						var src = editor.getValue();
+						let src = editor.getValue();
 						if (p === './main.kn') {
 							return toUtf8(src);
 						}
@@ -168,7 +168,7 @@
 		}
 
 		function concat(a, b) {
-			var c = new Uint8Array(a.length + b.length);
+			let c = new Uint8Array(a.length + b.length);
 			c.set(a);
 			c.set(b, a.length);
 			return c;
