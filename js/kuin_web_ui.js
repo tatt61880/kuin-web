@@ -23,7 +23,9 @@
 
 		let platforms = document.getElementById('platform');
 		let platform = platforms.options[platforms.selectedIndex].value;
-		let target = null, write = null, extra = null;
+		let target = null;
+		let write = null;
+		let extra = null;
 		if (platform === 'run') {
 			target = 'web';
 			write = function(p, s, c) {
@@ -131,7 +133,8 @@
 		}
 
 		function fromUtf8(s) {
-			let r = '', len;
+			let r = '';
+			let len;
 			for (let i = 0; i < s.length; i++) {
 				let c = s[i];
 				if ((c & 0xc0) == 0x80)
