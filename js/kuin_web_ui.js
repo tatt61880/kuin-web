@@ -55,12 +55,12 @@
 		let code = { S: '' };
 		if (!included) {
 			included = true;
-			addLog('スクリプトをロード中。');
+			addLog('kuin.js のロード中。');
 			let script = document.createElement('script');
 			script.src = 'js/kuin.js?2021-04-17';
 			script.onload = function() {
 				if (!this.readyState || this.readyState === 'loaded' || this.readyState === 'complete') {
-					addLog('スクリプトがロード完了。');
+					addLog('kuin.js のロード完了。');
 					let tmp = extra;
 					extra = ['-v'];
 					run();
