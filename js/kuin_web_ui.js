@@ -61,6 +61,10 @@
 			script.onload = function() {
 				if (!this.readyState || this.readyState === 'loaded' || this.readyState === 'complete') {
 					addLog('スクリプトがロード完了。');
+					let tmp = extra;
+					extra = ['-v'];
+					run();
+					extra = tmp;
 					run();
 				}
 			};
