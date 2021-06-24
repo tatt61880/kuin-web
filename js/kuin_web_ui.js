@@ -95,7 +95,18 @@
 					}
 			});
 			if (platform === 'run') {
-				eval(code.S + ' if (typeof out !== "undefined") { out({print:function(s) {output.value += s}}); }');
+				let print =
+					function(s) {
+						output.value += s;
+					};
+				let inputLetter =
+					function() {
+						return 0xFFFF;
+					};
+				eval(code.S + ' if (typeof out !== "undefined") { out({' + 
+					'print:' + print.toString() + ', ' +
+					'inputLetter:' + inputLetter.toString() +
+					'}); }');
 			} else {
 				output.value = code.S;
 			}
