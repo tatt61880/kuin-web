@@ -103,10 +103,10 @@
 					function() {
 						return 0xFFFF;
 					};
-				eval(code.S + ' if (typeof out !== "undefined") { out({' + 
-					'print:' + print.toString() + ', ' +
-					'inputLetter:' + inputLetter.toString() +
-					'}); }');
+				eval(code.S + ' if (typeof out !== "undefined") { out({'
+					+ 'print:' + print.toString() + ', '
+					+ 'inputLetter:' + inputLetter.toString()
+					+ '}); }');
 			} else {
 				output.value = code.S;
 			}
