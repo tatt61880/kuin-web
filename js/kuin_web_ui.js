@@ -15,6 +15,7 @@
 	let logTypeId = '';
 	let compile = d.getElementById('compile');
 	let log = d.getElementById('log');
+	let input = d.getElementById('input');
 	let output = d.getElementById('output');
 	let included = false;
 	compile.addEventListener('click', function() {
@@ -95,13 +96,23 @@
 					}
 			});
 			if (platform === 'run') {
+				let inputStr = input.value;
+				let data = [];
+				for (let i = 0; i < inputStr.length; i++) {
+					data.push(inputStr.charCodeAt(i));
+				}
+				let idx = 0;
 				let print =
 					function(s) {
 						output.value += s;
 					};
 				let inputLetter =
 					function() {
-						return 0xFFFF;
+						if (idx < data.length) {
+							return data[idx++];
+						} else {
+							return 0xFFFF;
+						}
 					};
 				eval(code.S + ' if (typeof out !== "undefined") { out({'
 					+ 'print:' + print.toString() + ', '
