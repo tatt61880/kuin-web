@@ -19,8 +19,9 @@
 	let output = d.getElementById('output');
 	let included = false;
 	compile.addEventListener('click', function() {
-		let src = encodeURIComponent(editor.getValue());
-		updateTweetButton(src);
+		let src_encoded = encodeURIComponent(editor.getValue());
+		let input_encoded = encodeURIComponent(input.value);
+		updateTweetButton(src_encoded, input_encoded);
 
 		let platforms = document.getElementById('platform');
 		let platform = platforms.options[platforms.selectedIndex].value;
@@ -242,7 +243,7 @@
 		}
 	}
 
-	function updateTweetButton(src) {
+	function updateTweetButton(src_encoded, input_encoded) {
 		let b = document.getElementById('buttonTweet');
 		while (b.firstChild != null) b.removeChild(b.firstChild);
 		let ele = document.createElement('a');
@@ -254,7 +255,18 @@
 		if (questionPos != -1) {
 			href = href.substr(0, questionPos);
 		}
-		ele.setAttribute('data-url', href + (src === null ? '' : ('?src=' + src)));
+		let c = '?';
+		let src_data = '';
+		let input_data = '';
+		if (src_encoded !== null) {
+			src_data = c + 'src=' + src_encoded;
+			c = '&';
+		}
+		if (input_encoded !== null) {
+			input_data = c + 'input=' + input_encoded;
+			c = '&';
+		}
+		ele.setAttribute('data-url', href + src_data + input_data);
 		ele.setAttribute('data-hashtags', 'KuinWeb');
 		ele.appendChild(document.createTextNode('tweet'));
 		b.appendChild(ele);
@@ -289,8 +301,8 @@
 						editor.setValue(src);
 						editor.navigateTo(0, 0);
 					} else if (paraval[0] == 'input') {
-						let inputStr = decodeURIComponent(paraval[1]);
-						d.getElementById('input').value = inputStr;
+						let input_value = decodeURIComponent(paraval[1]);
+						d.getElementById('input').value = input_value;
 					}
 				}
 			}
