@@ -306,7 +306,7 @@
 					}
 				}
 			}
-			updateTweetButton(null);
+			updateTweetButton(null, null);
 		}
 	}
 })
