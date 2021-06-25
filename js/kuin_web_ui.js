@@ -288,6 +288,9 @@
 						let src = decodeURIComponent(paraval[1]);
 						editor.setValue(src);
 						editor.navigateTo(0, 0);
+					} else if (paraval[0] == 'input') {
+						let inputStr = decodeURIComponent(paraval[1]);
+						d.getElementById('input').value = inputStr;
 					}
 				}
 			}
