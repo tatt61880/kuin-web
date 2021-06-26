@@ -1,6 +1,6 @@
 'use strict';
 !function(f) {
-	let d=document;
+	let d = document;
 	function h() {
 		d.removeEventListener('DOMContentLoaded',h);
 		removeEventListener('load',h);
@@ -18,6 +18,16 @@
 	let input = d.getElementById('input');
 	let output = d.getElementById('output');
 	let included = false;
+	let editor;
+
+	removeLog();
+	output.value = '';
+	log.addEventListener('click', selectLog);
+	output.addEventListener('focus', function() { this.select(); });
+	d.getElementById('src').addEventListener('focus', function() {
+		d.getElementById('buttonTweet').style.visibility = 'hidden'; 
+	});
+
 	compile.addEventListener('click', function() {
 		let src_encoded = encodeURIComponent(editor.getValue());
 		let input_encoded = encodeURIComponent(input.value);
@@ -157,6 +167,13 @@
 				}
 			}
 			return r;
+
+			function concat(a, b) {
+				let c = new Uint8Array(a.length + b.length);
+				c.set(a);
+				c.set(b, a.length);
+				return c;
+			}
 		}
 
 		function fromUtf8(s) {
@@ -193,20 +210,6 @@
 			}
 			return r;
 		}
-
-		function concat(a, b) {
-			let c = new Uint8Array(a.length + b.length);
-			c.set(a);
-			c.set(b, a.length);
-			return c;
-		}
-	});
-	removeLog();
-	output.value = '';
-	log.addEventListener('click', selectLog );
-	output.addEventListener('focus', function() { this.select(); } );
-	d.getElementById('src').addEventListener('focus', function() {
-		d.getElementById('buttonTweet').style.visibility = 'hidden'; 
 	});
 
 	function removeLog() {
@@ -274,7 +277,6 @@
 		twttr.widgets.load();
 	}
 
-	let editor;
 	window.onload = function() {
 		editor = ace.edit('src');
 		editor.setTheme('ace/theme/kuin');
