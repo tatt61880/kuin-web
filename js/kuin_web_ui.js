@@ -77,7 +77,12 @@
 					extra = ['-v'];
 					run();
 					extra = tmp;
-					run();
+
+					// 処理を続ける前に現時点までのメッセージを画面に反映させるためにこうします。
+					let id = setInterval(function () {
+						clearInterval(id);
+						run();
+					}, 0);
 				}
 			};
 			d.getElementsByTagName('head')[0].appendChild(script);
