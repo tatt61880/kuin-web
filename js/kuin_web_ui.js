@@ -270,7 +270,7 @@
 			src_data = c + 'src=' + src_encoded;
 			c = '&';
 		}
-		if (input_encoded !== null) {
+		if (input_encoded !== null && input_encoded !== "") {
 			input_data = c + 'input=' + input_encoded;
 			c = '&';
 		}
