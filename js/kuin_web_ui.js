@@ -333,7 +333,7 @@
 
 	function enableButton() {
 		isButtonEnable = true;
-		executeButton.innerText = '処理開始';
+		executeButton.innerText = '処理開始▶';
 		executeButton.style.color = '#000';
 		executeButton.style.backgroundColor = '#0f0';
 	}
