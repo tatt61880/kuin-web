@@ -13,12 +13,13 @@
 
 (function(d) {
 	let logTypeId = '';
-	let compile = d.getElementById('compile');
+	let executeButton = d.getElementById('execute_button');
 	let log = d.getElementById('log');
 	let input = d.getElementById('input');
 	let output = d.getElementById('output');
 	let included = false;
 	let editor;
+	let isButtonEnable = false;
 
 	removeLog();
 	output.value = '';
@@ -28,7 +29,14 @@
 		d.getElementById('buttonTweet').style.visibility = 'hidden'; 
 	});
 
-	compile.addEventListener('click', function() {
+	executeButton.addEventListener('click', onClick);
+	enableButton();
+
+	function onClick() {
+		if (!isButtonEnable) {
+			return;
+		}
+		disableButton();
 		let src_encoded = encodeURIComponent(editor.getValue());
 		let input_encoded = encodeURIComponent(input.value);
 		updateTweetButton(src_encoded, input_encoded);
@@ -75,22 +83,25 @@
 					addLog('kuin.js のロード完了。');
 					let tmp = extra;
 					extra = ['-v'];
-					run();
+					run(false);
 					extra = tmp;
 
 					// 処理を続ける前に現時点までのメッセージを画面に反映させるためにこうします。
 					let id = setInterval(function () {
 						clearInterval(id);
-						run();
+						run(true);
 					}, 0);
 				}
 			};
 			d.getElementsByTagName('head')[0].appendChild(script);
 		} else {
-			run();
+			let id = setInterval(function () {
+				clearInterval(id);
+				run(true);
+			}, 0);
 		}
 
-		function run() {
+		function run(enable) {
 			kuin({
 				cmdLine:
 					['-i', 'main.kn', '-s', 'res/sys/', '-e', target].concat(extra),
@@ -136,6 +147,9 @@
 					+ '}); }');
 			} else {
 				output.value = code.S;
+			}
+			if (enable) {
+				enableButton();
 			}
 		}
 
@@ -215,7 +229,7 @@
 			}
 			return r;
 		}
-	});
+	}
 
 	function removeLog() {
 		while (log.firstChild) {
@@ -315,5 +329,17 @@
 			}
 			updateTweetButton(null, null);
 		}
+	}
+
+	function enableButton() {
+		isButtonEnable = true;
+		executeButton.innerText = '処理開始';
+		executeButton.style.backgroundColor = '#0f0';
+	}
+
+	function disableButton() {
+		isButtonEnable = false;
+		executeButton.innerText = '処理中';
+		executeButton.style.backgroundColor = '#f00';
 	}
 })
