@@ -334,12 +334,14 @@
 	function enableButton() {
 		isButtonEnable = true;
 		executeButton.innerText = '処理開始';
+		executeButton.style.color = '#000';
 		executeButton.style.backgroundColor = '#0f0';
 	}
 
 	function disableButton() {
 		isButtonEnable = false;
 		executeButton.innerText = '処理中';
+		executeButton.style.color = '#fff';
 		executeButton.style.backgroundColor = '#f00';
 	}
 })
