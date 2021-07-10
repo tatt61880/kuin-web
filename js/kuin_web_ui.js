@@ -305,7 +305,7 @@
 			enableBasicAutocompletion: true,
 			enableSnippets: true,
 			enableLiveAutocompletion: true,
-			fontSize: '14px',
+			fontSize: '16px',
 			minLines: 10,
 			maxLines: 35,
 		});
