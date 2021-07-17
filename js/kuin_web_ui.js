@@ -340,7 +340,7 @@
 
 	function disableButton() {
 		isButtonEnable = false;
-		executeButton.innerText = '処理中...';
+		executeButton.innerHTML = '処理中...';
 		executeButton.style.color = '#fff';
 		executeButton.style.backgroundColor = '#db5671';
 	}
