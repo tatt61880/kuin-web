@@ -333,15 +333,15 @@
 
 	function enableButton() {
 		isButtonEnable = true;
-		executeButton.innerText = '処理開始▶';
+		executeButton.innerHTML = '処理開始<img src="./images/kuin.png" width="25" height="25" />';
 		executeButton.style.color = '#000';
-		executeButton.style.backgroundColor = '#0f0';
+		executeButton.style.backgroundColor = '#7f7';
 	}
 
 	function disableButton() {
 		isButtonEnable = false;
 		executeButton.innerText = '処理中...';
 		executeButton.style.color = '#fff';
-		executeButton.style.backgroundColor = '#f00';
+		executeButton.style.backgroundColor = '#db5671';
 	}
 })
