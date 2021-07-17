@@ -10,7 +10,7 @@
   <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
   <script src="src-noconflict/ace.js?2020-07-17"></script>
   <script src="src-noconflict/ext-language_tools.js?2020-07-17"></script>
-  <script src="js/kuin_web_ui.js?2021-07-17"></script>
+  <script src="js/kuin_web_ui.js?2021-07-17-b"></script>
   <style>
 #log li {
   list-style-type:none;
@@ -24,7 +24,7 @@
 <div id="container" class="pl_pc">
 <div id="main_ja" class="main">
   <div id="article">
-    <pre id="src" style="height: 400px; font-size: 15px;">func main()
+    <pre id="src" style="height: 400px;">func main()
 	do cui@print("100以下の素数を出力するプログラム:\n")
 	for i(2, 100)
 		if(math@prime(i))
@@ -34,7 +34,7 @@
 end func</pre>
     <div style="width:50%;float:left">
       <div class="block" style="text-indent:0;font-size:16px;margin:10px;border:0">
-        <button id="execute_button" type="button" style="width: 140px; height: 60px; border: 1px solid #999; border-radius: 30px; background-color: #888; font-size: 20px; font-weight: bold;">-</button>&nbsp;&nbsp;
+        <button id="execute_button" type="button" style="width: 140px; height: 60px; border: 1px solid #999; border-radius: 20px; background-color: #888; font-size: 20px; font-weight: bold;">-</button>&nbsp;&nbsp;
         <select id="platform" style="font-size:18px; width:240px; height:30px;">
           <option value="run" label="&nbsp;コンパイル＆実行" selected>&nbsp;コンパイル＆実行</option>
           <option value="cpp" label="&nbsp;C++出力">&nbsp;C++出力</option>
