@@ -77,7 +77,7 @@
 			included = true;
 			addLog('kuin.js のロード中。');
 			let script = document.createElement('script');
-			script.src = 'js/kuin.js?2021-06-17';
+			script.src = 'js/kuin.js?2021-07-17';
 			script.onload = function() {
 				if (!this.readyState || this.readyState === 'loaded' || this.readyState === 'complete') {
 					addLog('kuin.js のロード完了。');
