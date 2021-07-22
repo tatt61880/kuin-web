@@ -63,6 +63,10 @@
 		} else if (platform === 'cpp') {
 			target = 'cpp';
 			write = function(p, s, c) {
+				c.S += '#if 0 // Kuin Programming Language\n';
+				c.S += editor.getValue() + '\n';
+				c.S += '#endif\n';
+				c.S += '// C++ code below is transpiled from Kuin code above by Kuin Programming Language\n';
 				c.S += fromUtf8(s);
 			};
 			extra = ['-x', 'merge'];
