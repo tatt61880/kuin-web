@@ -80,7 +80,6 @@ h2
 	border-bottom: solid 1px #3c2d2c;
 	border-right: solid 1px #3c2d2c;
 	border-radius: 4px;
-	-webkit-border-radius: 4px;
 	margin: 34px 0;
 	color: #aa5857;
 	font-weight: bold;
@@ -128,7 +127,6 @@ h3 span
 {
 	background-color: #c65b56;
 	border-radius: 8px;
-	-webkit-border-radius: 8px;
 	color: #fff;
 }
 #article hr.h3
@@ -185,7 +183,6 @@ div.weak
 	width: 75%;
 	margin: 0 10px 0 auto;
 	border-radius: 0;
-	-webkit-border-radius: 0;
 }
 .weak h5
 {
@@ -204,7 +201,6 @@ i
 	font-style: normal;
 	border: solid 1px #d0aed9;
 	border-radius: 4px;
-	-webkit-border-radius: 4px;
 	background-color: #f5ebf7;
 }
 span.formula
@@ -230,7 +226,6 @@ figure span.formula img
 div.block
 {
 	border-radius: 6px;
-	-webkit-border-radius: 6px;
 	border: solid 2px #c6dc82;
 	padding: 3px 8px;
 	text-indent: 1em;
@@ -267,7 +262,6 @@ h4
 {
 	background-color: #d0aad9;
 	border-radius: 4px;
-	-webkit-border-radius: 4px;
 	border-left: solid 8px #ad82b8;
 	border-right: solid 8px #ad82b8;
 	margin: 8px 0;
@@ -345,7 +339,6 @@ figure td.c
 figure img
 {
 	border-radius: 6px;
-	-webkit-border-radius: 6px;
 	border: solid 2px #d0aed9;
 }
 figure div
@@ -353,7 +346,6 @@ figure div
 	width: 80%;
 	margin: 0 auto;
 	border-radius: 6px;
-	-webkit-border-radius: 6px;
 	border: solid 2px #d0aed9;
 	padding: 4px 8px;
 	text-align: left;
@@ -408,7 +400,6 @@ figure div ol li:before
 	margin: 2px 10px 2px 0;
 	text-indent: 0;
 	border-radius: 8px;
-	-webkit-border-radius: 8px;
 }
 .pl_pc figure div ol li:before
 {
@@ -448,7 +439,6 @@ code
 code ol
 {
 	border-radius: 4px;
-	-webkit-border-radius: 4px;
 	border: solid 2px #d0aed9;
 	font-family: Consolas, 'Courier New', monospace;
 	list-style-type: none;
@@ -594,7 +584,6 @@ div.navi h1
 	background-color: #f9e2e2;
 	padding: 3px;
 	border-radius: 8px;
-	-webkit-border-radius: 8px;
 	color: #a55f5e;
 	font-weight: bold;
 }
