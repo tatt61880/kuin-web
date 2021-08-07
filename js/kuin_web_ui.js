@@ -339,7 +339,7 @@
 		isButtonEnable = true;
 		executeButton.innerHTML = '処理開始<img src="./images/kuin.png?2021-08-06" width="28" height="28" />';
 		executeButton.style.color = '#000';
-		executeButton.style.backgroundColor = '#7f7';
+		executeButton.style.backgroundColor = '#afa';
 	}
 
 	function disableButton() {
