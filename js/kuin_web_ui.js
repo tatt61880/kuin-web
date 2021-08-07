@@ -340,6 +340,7 @@
 		executeButton.innerHTML = '処理開始<img src="./images/kuin.png?2021-08-06" width="28" height="28" />';
 		executeButton.style.color = '#000';
 		executeButton.style.backgroundColor = '#afa';
+		executeButton.style.border = '2px solid #008000';
 	}
 
 	function disableButton() {
@@ -347,5 +348,6 @@
 		executeButton.innerHTML = '処理中...';
 		executeButton.style.color = '#fff';
 		executeButton.style.backgroundColor = '#db5671';
+		executeButton.style.border = '2px solid #a8233e';
 	}
 })
