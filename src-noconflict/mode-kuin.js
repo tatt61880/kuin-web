@@ -142,7 +142,6 @@ var Mode = function() {
 oop.inherits(Mode, TextMode);
 
 (function() {
-
     this.lineCommentStart = ";";
 
     this.getNextLineIndent = function(state, line, tab) {
@@ -151,39 +150,40 @@ oop.inherits(Mode, TextMode);
         var tokenizedLine = this.getTokenizer().getLineTokens(line, state);
         var tokens = tokenizedLine.tokens;
 
-        if (tokens.length && tokens[tokens.length-1].type == "comment") {
+        if (tokens.length && tokens[tokens.length - 1].type == "comment") {
             return indent;
         }
         if (state == "start") {
-            var match = line.match(/^\s*(func|class|enum|if|elif|else|switch|case|default|while|for|try|catch|finally|block)\b/);
-            if (match) {
+            if (isIndent(line)) {
                 indent += tab;
             }
         }
-
         return indent;
     };
 
     this.checkOutdent = function(state, line, input) {
         var complete_line = line + input;
-        if (complete_line.match(/^\s*(end|elif|else|case|default|catch|finally)$/)) {
-            return true;
-        }
-        return false;
+        return isOutdent(complete_line);
     };
 
     this.autoOutdent = function(state, session, row) {
-
         var line = session.getLine(row);
-        var prevLine = session.getLine(row - 1);
-        var prevIndent = this.$getIndent(prevLine).length;
         var indent = this.$getIndent(line).length;
-        if (indent <= prevIndent) {
+        var linePrev = session.getLine(row - 1);
+        var indentPrev = this.$getIndent(linePrev).length;
+        if (indent < indentPrev + (isIndent(linePrev) ? 1 : 0)) {
             return;
         }
-
         session.outdentRows(new Range(row, 0, row + 1, 0));
     };
+
+    function isIndent(line){
+        return line.match(/^\s*(func|class|enum|if|elif|else|switch|case|default|while|for|try|catch|finally|block)\b/);
+    }
+
+    function isOutdent(line){
+        return line.match(/^\s*(end|elif|else|case|default|catch|finally)$/);
+    }
 
     this.$id = "ace/mode/kuin";
     this.snippetFileId = "ace/snippets/kuin";
