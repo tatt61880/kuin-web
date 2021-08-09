@@ -162,8 +162,7 @@ oop.inherits(Mode, TextMode);
     };
 
     this.checkOutdent = function(state, line, input) {
-        var complete_line = line + input;
-        return isOutdent(complete_line);
+        return isOutdent(line + input);
     };
 
     this.autoOutdent = function(state, session, row) {
@@ -182,7 +181,7 @@ oop.inherits(Mode, TextMode);
     }
 
     function isOutdent(line){
-        return line.match(/^\s*(end|elif|else|case|default|catch|finally)$/);
+        return line.match(/^\s*(end|elif|else|case|default|catch|finally)\b/);
     }
 
     this.$id = "ace/mode/kuin";
