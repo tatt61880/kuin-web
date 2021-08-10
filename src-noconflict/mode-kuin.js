@@ -177,7 +177,7 @@ oop.inherits(Mode, TextMode);
     };
 
     function isIndent(line){
-        return line.match(/^\s*(func|class|enum|if|elif|else|switch|case|default|while|for|try|catch|finally|block)\b/);
+        return line.match(/^\s*(\+?\*?func|\+?class|\+?enum|if|elif|else|switch|case|default|while|for|try|catch|finally|block)\b/);
     }
 
     function isOutdent(line){
