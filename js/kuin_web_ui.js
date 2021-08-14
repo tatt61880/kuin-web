@@ -41,6 +41,7 @@
 		let input_encoded = encodeURIComponent(input.value);
 		updateTweetButton(src_encoded, input_encoded);
 
+		document.getElementById('k_body').textContent = '';
 		let platforms = document.getElementById('platform');
 		let platform = platforms.options[platforms.selectedIndex].value;
 		let target = null;
