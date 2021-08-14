@@ -1986,6 +1986,11 @@ var keyWordCompleter = {
 
 var snippetCompleter = {
     getCompletions: function(editor, session, pos, prefix, callback) {
+        { /* Edited for Kuin */
+            var line = editor.session.getLine(pos.row);
+            if (line.match(/^\s*end\b/)) return;
+        }
+
         var scopes = [];
         var token = session.getTokenAt(pos.row, pos.column);
         if (token && token.type.match(/(tag-name|tag-open|tag-whitespace|attribute-name|attribute-value)\.xml$/))
