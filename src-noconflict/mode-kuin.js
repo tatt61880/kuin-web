@@ -61,7 +61,7 @@ var KuinHighlightRules = function() {
 
         character: [{
             token: "string",
-            regex: /'(?:[^\\]|\\(?:[\\"'0nt]|u[0-9A-F]{4}))'/,
+            regex: /'(?:[^\\']|\\(?:[\\"'0nt]|u[0-9A-F]{4}))'/,
         }],
 
         string: [{
