@@ -23,6 +23,10 @@ exports.cssText = ".ace-kuin .ace_gutter {\
 .ace-kuin.ace_multiselect .ace_selection.ace_start {\
 	box-shadow: 0 0 3px 0px #141414;\
 }\
+.ace-kuin .ace_marker-layer .ace_bracket {\
+	margin: -1px 0 0 -1px;\
+	border: 1px solid rgba(255, 128, 0, 0.25)\
+}\
 .ace-kuin .ace_marker-layer .ace_active-line {\
 	background: rgba(0, 0, 0, 0.031)\
 }\
