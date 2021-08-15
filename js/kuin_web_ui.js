@@ -310,6 +310,7 @@
 			enableBasicAutocompletion: true,
 			enableSnippets: true,
 			enableLiveAutocompletion: true,
+			copyWithEmptySelection: true,
 			fontSize: '16px',
 			minLines: 10,
 			maxLines: 35,
