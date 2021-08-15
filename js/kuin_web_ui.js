@@ -303,10 +303,10 @@
 
 	window.onload = function() {
 		editor = ace.edit('src');
-		editor.setTheme('ace/theme/kuin');
-		editor.session.setMode('ace/mode/kuin');
-		editor.session.setUseSoftTabs(false);
 		editor.setOptions({
+			theme: 'ace/theme/kuin',
+			mode: 'ace/mode/kuin',
+			useSoftTabs: true,
 			enableBasicAutocompletion: true,
 			enableSnippets: true,
 			enableLiveAutocompletion: true,
