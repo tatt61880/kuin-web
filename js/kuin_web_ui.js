@@ -306,7 +306,7 @@
 		editor.setOptions({
 			theme: 'ace/theme/kuin',
 			mode: 'ace/mode/kuin',
-			useSoftTabs: true,
+			useSoftTabs: false,
 			enableBasicAutocompletion: true,
 			enableSnippets: true,
 			enableLiveAutocompletion: true,
