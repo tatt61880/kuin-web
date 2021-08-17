@@ -80,12 +80,13 @@
 		let code = { S: '' };
 		if (!included) {
 			included = true;
-			addLog('kuin.js のロード中。');
+			const script_name = 'kuin_ja.js';
+			addLog(script_name + ' のロード中。');
 			let script = document.createElement('script');
-			script.src = 'js/kuin.js?2021-07-17';
+			script.src = 'js/' + script_name + '?2021-07-17';
 			script.onload = function() {
 				if (!this.readyState || this.readyState === 'loaded' || this.readyState === 'complete') {
-					addLog('kuin.js のロード完了。');
+					addLog(script_name + ' のロード完了。');
 					let tmp = extra;
 					extra = ['-v'];
 					run(false);
