@@ -26,8 +26,9 @@
 <div id="main_ja" class="main">
   <div id="article">
     <pre id="src" style="height: 400px;">func main()
-	do cui@print("100以下の素数を出力するプログラム:\n")
-	for i(2, 100)
+	const max: int :: 917
+	do cui@print("\{max}以下の素数を出力します。\n")
+	for i(2, max)
 		if(math@prime(i))
 			do cui@print("\{i}\n")
 		end if
