@@ -20,6 +20,7 @@
 	let included = false;
 	let editor;
 	let isButtonEnable = false;
+	let version = '';
 
 	removeLog();
 	output.value = '';
@@ -64,10 +65,11 @@
 		} else if (platform === 'cpp') {
 			target = 'cpp';
 			write = function(p, s, c) {
-				c.S += '#if 0 // Kuin Programming Language\n';
+				const langName = 'Kuin Programming Language' + version;
+				c.S += '#if 0 // ' + langName + '\n';
 				c.S += editor.getValue() + '\n';
 				c.S += '#endif\n';
-				c.S += '// C++ code below is transpiled from Kuin code above by Kuin Programming Language\n';
+				c.S += '// C++ code below is transpiled from Kuin code above by ' + langName + '\n';
 				c.S += fromUtf8(s);
 			};
 			extra = ['-x', 'merge'];
@@ -101,6 +103,9 @@
 			};
 			d.getElementsByTagName('head')[0].appendChild(script);
 		} else {
+			if (version != '') {
+				addLog('Kuin Programming Language' + version);
+			}
 			let id = setInterval(function () {
 				clearInterval(id);
 				run(true);
@@ -244,6 +249,12 @@
 	}
 
 	function addLog(str) {
+		if (version == '') {
+			let match;
+			if (match = str.match(/^Kuin Programming Language (v\.\d{4}\.\d+\.\d+)\s*$/)) {
+				version = ' ' + match[1];
+			}
+		}
 		if (str.match(/^0x[\dA-F]{8}: /)) {
 			logTypeId = str;
 		} else if (str.match(/^\[.*\]$/)) {
