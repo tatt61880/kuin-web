@@ -352,16 +352,15 @@
 	function enableButton() {
 		isButtonEnable = true;
 		executeButton.innerHTML = '処理開始<img src="./images/kuin.png?2021-08-06" width="28" height="28" />';
-		executeButton.style.color = '#000';
-		executeButton.style.backgroundColor = '#afa';
-		executeButton.style.border = '2px solid #008000';
+		executeButton.classList.remove('init');
+		executeButton.classList.remove('disable');
+		executeButton.classList.add('enable');
 	}
 
 	function disableButton() {
 		isButtonEnable = false;
 		executeButton.innerHTML = '処理中...';
-		executeButton.style.color = '#fff';
-		executeButton.style.backgroundColor = '#db5671';
-		executeButton.style.border = '2px solid #a8233e';
+		executeButton.classList.remove('enable');
+		executeButton.classList.add('disable');
 	}
 })
