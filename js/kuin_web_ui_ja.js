@@ -21,12 +21,15 @@
 	let editor;
 	let isButtonEnable = false;
 	let version = '';
+	let errorTimeoutId = null;
+	const source_id = 'src';
+	let elemSrc = d.getElementById(source_id);
 
 	removeLog();
 	output.value = '';
 	log.addEventListener('click', selectLog);
 	output.addEventListener('focus', function() { this.select(); });
-	d.getElementById('src').addEventListener('focus', function() {
+	elemSrc.addEventListener('focus', function() {
 		d.getElementById('buttonTweet').style.visibility = 'hidden'; 
 	});
 
@@ -38,6 +41,7 @@
 			return;
 		}
 		disableButton();
+		removeErrorBox();
 		let src_encoded = encodeURIComponent(editor.getValue());
 		let input_encoded = encodeURIComponent(input.value);
 		updateTweetButton(src_encoded, input_encoded);
@@ -95,10 +99,7 @@
 					extra = tmp;
 
 					// 処理を続ける前に現時点までのメッセージを画面に反映させるためにこうします。
-					let id = setInterval(function () {
-						clearInterval(id);
-						run(true);
-					}, 0);
+					setTimeout(function () { run(true); }, 0);
 				}
 			};
 			d.getElementsByTagName('head')[0].appendChild(script);
@@ -106,10 +107,7 @@
 			if (version != '') {
 				addLog('Kuin Programming Language' + version);
 			}
-			let id = setInterval(function () {
-				clearInterval(id);
-				run(true);
-			}, 0);
+			setTimeout(function () { run(true); }, 0);
 		}
 
 		function run(enable) {
@@ -271,6 +269,29 @@
 					let row = match[1] - 1;
 					let col = match[2] - 1;
 					li.setAttribute('data-pos', '{"row":' + row + ', "col":' + col + '}');
+
+					let range = editor.session.getWordRange(row, col);
+
+					const leftTop = editor.renderer.textToScreenCoordinates(range.start.row, range.start.column);
+					const rightDown = editor.renderer.textToScreenCoordinates(range.end.row, range.end.column);
+					let containerElement = editor.renderer.getContainerElement();
+					let clientRect = containerElement.getBoundingClientRect() ;
+
+					const left = leftTop.pageX - clientRect.x;
+					const top = leftTop.pageY - clientRect.y;
+					const height = rightDown.pageY - leftTop.pageY + 19;
+					const width = rightDown.pageX - leftTop.pageX;
+
+					let div = document.createElement('div');
+					div.style.height = height + 'px';
+					div.style.width = width + 'px';
+					div.style.top = top + 'px';
+					div.style.left = left + 'px';
+					div.classList.add('compile_error');
+					elemSrc.appendChild(div);
+					if (errorTimeoutId == null) {
+						errorTimeoutId = setTimeout(removeErrorBox, 2000);
+					}
 				}
 			}
 			log.appendChild(li);
@@ -321,8 +342,17 @@
 		twttr.widgets.load();
 	}
 
+	function removeErrorBox(e) {
+		clearTimeout(errorTimeoutId);
+		errorTimeoutId = null;
+		let targetElements = document.getElementsByClassName('compile_error');
+		for (let i = targetElements.length - 1; i >= 0; i--) {
+			targetElements[i].remove();
+		}
+	}
+
 	window.onload = function() {
-		editor = ace.edit('src');
+		editor = ace.edit(source_id);
 		editor.setOptions({
 			theme: 'ace/theme/kuin',
 			mode: 'ace/mode/kuin',
@@ -336,6 +366,8 @@
 			maxLines: 35,
 		});
 
+		editor.on("change", removeErrorBox);
+
 		{
 			let paravalsStr = location.href.split('?')[1];
 			if (paravalsStr == null) paravalsStr = '';
@@ -343,7 +375,7 @@
 			for (let i = 0; i < paravalsArray.length; i++) {
 				let paraval = paravalsArray[i].split('=');
 				if (paraval.length == 2) {
-					if (paraval[0] == 'src') {
+					if (paraval[0] == source_id) {
 						let src = decodeURIComponent(paraval[1]);
 						editor.setValue(src);
 						editor.navigateTo(0, 0);
