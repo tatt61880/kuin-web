@@ -266,6 +266,12 @@
 				li.style.backgroundColor = '#f5f5f5';
 			} else {
 				li.style.backgroundColor = '#ffeff7';
+				let match;
+				if (match = logTypeId.match(/^^0x[\dA-F]{8}: \[\\main: (\d+), (\d+)\]/)) {
+					let row = match[1] - 1;
+					let col = match[2] - 1;
+					li.setAttribute('data-pos', '{"row":' + row + ', "col":' + col + '}');
+				}
 			}
 			log.appendChild(li);
 			logTypeId = '';
@@ -273,11 +279,12 @@
 	}
 
 	function selectLog(e) {
-		let match;
-		if (match = e.target.textContent.match(/^0x[\dA-F]{8}: \[\\main: (\d+), (\d+)\]/)) {
-			let row = match[1];
-			let column = match[2];
-			editor.navigateTo(row - 1, column - 1);
+		const data = e.target.getAttribute('data-pos');
+		if (data !== null) {
+			const pos = JSON.parse(data);
+			let row = pos.row;
+			let col = pos.col;
+			editor.navigateTo(row, col);
 			editor.scrollToLine(row, true, true);
 		}
 	}
