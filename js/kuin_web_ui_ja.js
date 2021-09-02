@@ -286,6 +286,7 @@
 			let col = pos.col;
 			editor.navigateTo(row, col);
 			editor.scrollToLine(row, true, true);
+			editor.focus();
 		}
 	}
 
