@@ -27,6 +27,7 @@
 	let isButtonEnable = false;
 	let version = '';
 	let elemAceTextLayer;
+	let errorPosNum = 0;
 
 	removeLog();
 	elemOutput.value = '';
@@ -44,6 +45,7 @@
 			return;
 		}
 		disableButton();
+		errorPosNum = 0;
 		let srcEncoded = encodeURIComponent(editor.getValue());
 		let inputEncoded = encodeURIComponent(elemInput.value);
 		updateTweetButton(srcEncoded, inputEncoded);
@@ -269,6 +271,9 @@
 	}
 
 	function updateErrorHighlight() {
+		if (errorPosNum == 0) {
+			return;
+		}
 		for (const logList of elemLog.children) {
 			const data = logList.getAttribute('data-pos');
 			if (data != null) {
@@ -298,6 +303,7 @@
 				li.style.backgroundColor = '#ffeff7';
 				let match;
 				if (match = logTypeId.match(/^^0x[\dA-F]{8}: \[\\main: (\d+), (\d+)\]/)) {
+					errorPosNum++;
 					let row = match[1] - 1;
 					let col = match[2] - 1;
 					li.setAttribute('data-pos', `{"row": ${row}, "col": ${col}}`);
@@ -355,6 +361,7 @@
 		elemAceTextLayer = elemSrc.getElementsByClassName('ace_text-layer')[0];
 		const config = {
 			childList: true,
+			subtree: true
 		};
 		const observer = new MutationObserver(updateErrorHighlight);
 		observer.observe(elemAceTextLayer, config);
@@ -369,6 +376,9 @@
 			fontSize: '16px',
 			minLines: 10,
 			maxLines: 35,
+		});
+		editor.on("change", function(){
+			errorPosNum = 0;
 		});
 
 		{
