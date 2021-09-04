@@ -247,9 +247,7 @@
 
 	function addErrorHighlight(row, col) {
 		let elemLines = elemAceTextLayer.getElementsByClassName('ace_line');
-		let topPx = parseInt(elemLines[0].style.top);
-		let heightPx = parseInt(elemLines[0].style.height);
-		let firstRow = topPx / heightPx;
+		let firstRow = parseInt(elemLines[0].style.top) / parseInt(elemLines[0].style.height);
 		let lastRow = firstRow + elemLines.length - 1;
 		if (firstRow <= row && row <= lastRow) {
 			const targetLeft = editor.renderer.textToScreenCoordinates(row, col).pageX;
@@ -350,7 +348,10 @@
 	window.onload = function() {
 		editor = ace.edit(source_id);
 		elemAceTextLayer = elemSrc.getElementsByClassName('ace_text-layer')[0];
-		const config = { childList: true };
+		const config = {
+			childList: true,
+			subtree: true
+		};
 		const observer = new MutationObserver(updateErrorHighlight);
 		observer.observe(elemAceTextLayer, config);
 		editor.setOptions({
