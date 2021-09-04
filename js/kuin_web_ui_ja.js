@@ -21,8 +21,8 @@
 	let editor;
 	let isButtonEnable = false;
 	let version = '';
-	const source_id = 'src';
-	let elemSrc = d.getElementById(source_id);
+	const sourceId = 'src';
+	let elemSrc = d.getElementById(sourceId);
 	let elemAceTextLayer;
 
 	removeLog();
@@ -41,9 +41,9 @@
 			return;
 		}
 		disableButton();
-		let src_encoded = encodeURIComponent(editor.getValue());
-		let input_encoded = encodeURIComponent(input.value);
-		updateTweetButton(src_encoded, input_encoded);
+		let srcEncoded = encodeURIComponent(editor.getValue());
+		let inputEncoded = encodeURIComponent(input.value);
+		updateTweetButton(srcEncoded, inputEncoded);
 
 		document.getElementById('k_body').textContent = '';
 		let platforms = document.getElementById('platform');
@@ -85,13 +85,13 @@
 		let code = { S: '' };
 		if (!included) {
 			included = true;
-			const script_name = 'kuin_ja.js';
-			addLog(script_name + ' のロード中。');
+			const scriptName = 'kuin_ja.js';
+			addLog(scriptName + ' のロード中。');
 			let script = document.createElement('script');
-			script.src = 'js/' + script_name + '?2021-07-17';
+			script.src = 'js/' + scriptName + '?2021-07-17';
 			script.onload = function() {
 				if (!this.readyState || this.readyState === 'loaded' || this.readyState === 'complete') {
-					addLog(script_name + ' のロード完了。');
+					addLog(scriptName + ' のロード完了。');
 					let tmp = extra;
 					extra = ['-v'];
 					run(false);
@@ -252,14 +252,13 @@
 		if (firstRow <= row && row <= lastRow) {
 			const targetLeft = editor.renderer.textToScreenCoordinates(row, col).pageX;
 			const elems = elemLines[row - firstRow].children;
-			for (let i = 0; i < elems.length; i++) {
-				const elemLeft = elems[i].getBoundingClientRect().x;
+			for (const elem of elems) {
+				const elemLeft = elem.getBoundingClientRect().x;
 				if (elemLeft >= targetLeft - 1) {
-					let classList = elems[i].classList;
-					for (let j = 0; j < classList.length; j++) {
-						elems[i].classList.remove(classList[j]);
+					for (const className of elem.classList) {
+						elem.classList.remove(className);
 					}
-					elems[i].classList.add('ace_error');
+					elem.classList.add('ace_error');
 					break;
 				}
 			}
@@ -267,9 +266,8 @@
 	}
 
 	function updateErrorHighlight() {
-		const logLists = logElem.children;
-		for (let i = 0; i < logLists.length; i++) {
-			const data = logLists[i].getAttribute('data-pos');
+		for (const logList of logElem.children) {
+			const data = logList.getAttribute('data-pos');
 			if (data != null) {
 				const pos = JSON.parse(data);
 				addErrorHighlight(pos.row, pos.col);
@@ -318,7 +316,7 @@
 		}
 	}
 
-	function updateTweetButton(src_encoded, input_encoded) {
+	function updateTweetButton(srcEncoded, inputEncoded) {
 		let b = document.getElementById('buttonTweet');
 		while (b.firstChild != null) b.removeChild(b.firstChild);
 		let ele = document.createElement('a');
@@ -331,17 +329,17 @@
 			href = href.substr(0, questionPos);
 		}
 		let c = '?';
-		let src_data = '';
-		let input_data = '';
-		if (src_encoded !== null) {
-			src_data = c + 'src=' + src_encoded;
+		let srcData = '';
+		let inputData = '';
+		if (srcEncoded !== null) {
+			srcData = c + 'src=' + srcEncoded;
 			c = '&';
 		}
-		if (input_encoded !== null && input_encoded !== "") {
-			input_data = c + 'input=' + input_encoded;
+		if (inputEncoded !== null && inputEncoded !== "") {
+			inputData = c + 'input=' + inputEncoded;
 			c = '&';
 		}
-		ele.setAttribute('data-url', href + src_data + input_data);
+		ele.setAttribute('data-url', href + srcData + inputData);
 		ele.setAttribute('data-hashtags', 'KuinWeb');
 		ele.appendChild(document.createTextNode('tweet'));
 		b.appendChild(ele);
@@ -350,7 +348,7 @@
 	}
 
 	window.onload = function() {
-		editor = ace.edit(source_id);
+		editor = ace.edit(sourceId);
 		elemAceTextLayer = elemSrc.getElementsByClassName('ace_text-layer')[0];
 		const config = {
 			childList: true,
@@ -371,19 +369,18 @@
 		});
 
 		{
-			let paravalsStr = location.href.split('?')[1];
+			const paravalsStr = location.href.split('?')[1];
 			if (paravalsStr == null) paravalsStr = '';
-			let paravalsArray = paravalsStr.split('&');
-			for (let i = 0; i < paravalsArray.length; i++) {
-				let paraval = paravalsArray[i].split('=');
+			for (const paravals of paravalsStr.split('&')) {
+				let paraval = paravals.split('=');
 				if (paraval.length == 2) {
-					if (paraval[0] == source_id) {
+					if (paraval[0] == 'src') {
 						let src = decodeURIComponent(paraval[1]);
 						editor.setValue(src);
 						editor.navigateTo(0, 0);
 					} else if (paraval[0] == 'input') {
-						let input_value = decodeURIComponent(paraval[1]);
-						d.getElementById('input').value = input_value;
+						const inputVaalue = decodeURIComponent(paraval[1]);
+						d.getElementById('input').value = inputVaalue;
 					}
 				}
 			}
