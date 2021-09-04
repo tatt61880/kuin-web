@@ -14,21 +14,24 @@
 (function(d) {
 	let logTypeId = '';
 	const executeButton = d.getElementById('execute_button');
-	const logElem = d.getElementById('log');
-	const input = d.getElementById('input');
-	const output = d.getElementById('output');
+	const elemIdSrc = 'src';
+	const elemIdInput = 'input';
+	const elemSrc = d.getElementById(elemIdSrc);
+	const elemInput = d.getElementById(elemIdInput);
+	const elemOutput = d.getElementById('output');
+	const elemLog = d.getElementById('log');
+	const paramNameSrc = 'src';
+	const paramNameInput = 'input';
 	let included = false;
 	let editor;
 	let isButtonEnable = false;
 	let version = '';
-	const sourceId = 'src';
-	let elemSrc = d.getElementById(sourceId);
 	let elemAceTextLayer;
 
 	removeLog();
-	output.value = '';
-	logElem.addEventListener('click', selectLog);
-	output.addEventListener('focus', function() { this.select(); });
+	elemOutput.value = '';
+	elemLog.addEventListener('click', selectLog);
+	elemOutput.addEventListener('focus', function() { this.select(); });
 	elemSrc.addEventListener('focus', function() {
 		d.getElementById('buttonTweet').style.visibility = 'hidden'; 
 	});
@@ -42,7 +45,7 @@
 		}
 		disableButton();
 		let srcEncoded = encodeURIComponent(editor.getValue());
-		let inputEncoded = encodeURIComponent(input.value);
+		let inputEncoded = encodeURIComponent(elemInput.value);
 		updateTweetButton(srcEncoded, inputEncoded);
 
 		document.getElementById('k_body').textContent = '';
@@ -80,7 +83,7 @@
 			window.alert('Unexpected platform.');
 			return;
 		}
-		output.value = '';
+		elemOutput.value = '';
 		removeLog();
 		let code = { S: '' };
 		if (!included) {
@@ -131,7 +134,7 @@
 					}
 			});
 			if (platform === 'run') {
-				let inputStr = input.value;
+				let inputStr = elemInput.value;
 				let data = [];
 				for (let i = 0; i < inputStr.length; i++) {
 					data.push(inputStr.charCodeAt(i));
@@ -139,7 +142,7 @@
 				let idx = 0;
 				let print =
 					function(s) {
-						output.value += s;
+						elemOutput.value += s;
 					};
 				let inputLetter =
 					function() {
@@ -154,7 +157,7 @@
 					+ 'inputLetter:' + inputLetter.toString()
 					+ '}); }');
 			} else {
-				output.value = code.S;
+				elemOutput.value = code.S;
 			}
 			if (enable) {
 				enableButton();
@@ -240,8 +243,8 @@
 	}
 
 	function removeLog() {
-		while (logElem.firstChild) {
-			logElem.removeChild(logElem.firstChild);
+		while (elemLog.firstChild) {
+			elemLog.removeChild(elemLog.firstChild);
 		}
 	}
 
@@ -266,7 +269,7 @@
 	}
 
 	function updateErrorHighlight() {
-		for (const logList of logElem.children) {
+		for (const logList of elemLog.children) {
 			const data = logList.getAttribute('data-pos');
 			if (data != null) {
 				const pos = JSON.parse(data);
@@ -301,7 +304,7 @@
 					addErrorHighlight(row, col);
 				}
 			}
-			logElem.appendChild(li);
+			elemLog.appendChild(li);
 			logTypeId = '';
 		}
 	}
@@ -332,11 +335,11 @@
 		let srcData = '';
 		let inputData = '';
 		if (srcEncoded !== null) {
-			srcData = c + 'src=' + srcEncoded;
+			srcData = c + paramNameSrc + '=' + srcEncoded;
 			c = '&';
 		}
 		if (inputEncoded !== null && inputEncoded !== "") {
-			inputData = c + 'input=' + inputEncoded;
+			inputData = c + paramNameInput + '=' + inputEncoded;
 			c = '&';
 		}
 		ele.setAttribute('data-url', href + srcData + inputData);
@@ -348,7 +351,7 @@
 	}
 
 	window.onload = function() {
-		editor = ace.edit(sourceId);
+		editor = ace.edit(elemIdSrc);
 		elemAceTextLayer = elemSrc.getElementsByClassName('ace_text-layer')[0];
 		const config = {
 			childList: true,
@@ -374,13 +377,13 @@
 			for (const paravals of paravalsStr.split('&')) {
 				let paraval = paravals.split('=');
 				if (paraval.length == 2) {
-					if (paraval[0] == 'src') {
+					if (paraval[0] == paramNameSrc) {
 						let src = decodeURIComponent(paraval[1]);
 						editor.setValue(src);
 						editor.navigateTo(0, 0);
-					} else if (paraval[0] == 'input') {
+					} else if (paraval[0] == paramNameInput) {
 						const inputVaalue = decodeURIComponent(paraval[1]);
-						d.getElementById('input').value = inputVaalue;
+						elemInput.value = inputVaalue;
 					}
 				}
 			}
