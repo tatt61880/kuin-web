@@ -372,7 +372,7 @@
 		});
 
 		{
-			const paravalsStr = location.href.split('?')[1];
+			let paravalsStr = location.href.split('?')[1];
 			if (paravalsStr == null) paravalsStr = '';
 			for (const paravals of paravalsStr.split('&')) {
 				let paraval = paravals.split('=');
