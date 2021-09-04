@@ -254,7 +254,7 @@
 			const elems = elemLines[row - firstRow].children;
 			for (let i = 0; i < elems.length; i++) {
 				const elemLeft = elems[i].getBoundingClientRect().x;
-				if (elemLeft >= targetLeft) {
+				if (elemLeft >= targetLeft - 1) {
 					elems[i].classList.add('ace_error');
 					break;
 				}
@@ -350,7 +350,6 @@
 		elemAceTextLayer = elemSrc.getElementsByClassName('ace_text-layer')[0];
 		const config = {
 			childList: true,
-			subtree: true
 		};
 		const observer = new MutationObserver(updateErrorHighlight);
 		observer.observe(elemAceTextLayer, config);
