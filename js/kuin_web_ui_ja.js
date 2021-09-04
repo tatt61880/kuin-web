@@ -21,9 +21,9 @@
 	let editor;
 	let isButtonEnable = false;
 	let version = '';
-	let errorTimeoutId = null;
 	const source_id = 'src';
 	let elemSrc = d.getElementById(source_id);
+	let elemAceTextLayer;
 
 	removeLog();
 	output.value = '';
@@ -41,7 +41,6 @@
 			return;
 		}
 		disableButton();
-		removeErrorBox();
 		let src_encoded = encodeURIComponent(editor.getValue());
 		let input_encoded = encodeURIComponent(input.value);
 		updateTweetButton(src_encoded, input_encoded);
@@ -268,29 +267,23 @@
 				if (match = logTypeId.match(/^^0x[\dA-F]{8}: \[\\main: (\d+), (\d+)\]/)) {
 					let row = match[1] - 1;
 					let col = match[2] - 1;
-					li.setAttribute('data-pos', '{"row":' + row + ', "col":' + col + '}');
+					li.setAttribute('data-pos', `{"row": ${row}, "col": ${col}}`);
 
-					let range = editor.session.getWordRange(row, col);
-
-					const leftTop = editor.renderer.textToScreenCoordinates(range.start.row, range.start.column);
-					const rightDown = editor.renderer.textToScreenCoordinates(range.end.row, range.end.column);
-					let containerElement = editor.renderer.getContainerElement();
-					let clientRect = containerElement.getBoundingClientRect() ;
-
-					const left = leftTop.pageX - clientRect.x;
-					const top = leftTop.pageY - clientRect.y;
-					const height = rightDown.pageY - leftTop.pageY + 19;
-					const width = rightDown.pageX - leftTop.pageX;
-
-					let div = document.createElement('div');
-					div.style.height = height + 'px';
-					div.style.width = width + 'px';
-					div.style.top = top + 'px';
-					div.style.left = left + 'px';
-					div.classList.add('compile_error');
-					elemSrc.appendChild(div);
-					if (errorTimeoutId == null) {
-						errorTimeoutId = setTimeout(removeErrorBox, 2000);
+					let elemLines = elemAceTextLayer.getElementsByClassName('ace_line');
+					let topPx = parseInt(elemLines[0].style.top);
+					let heightPx = parseInt(elemLines[0].style.height);
+					let firstRow = topPx / heightPx;
+					let lastRow = firstRow + elemLines.length - 1;
+					if (firstRow <= row && row <= lastRow) {
+						const targetLeft = editor.renderer.textToScreenCoordinates(row, col).pageX;
+						const elems = elemLines[row - firstRow].children;
+						for (let i = 0; i < elems.length; i++) {
+							const elemLeft = elems[i].getBoundingClientRect().x;
+							if (elemLeft >= targetLeft) {
+								elems[i].classList.add('ace_error');
+								break;
+							}
+						}
 					}
 				}
 			}
@@ -342,17 +335,9 @@
 		twttr.widgets.load();
 	}
 
-	function removeErrorBox(e) {
-		clearTimeout(errorTimeoutId);
-		errorTimeoutId = null;
-		let targetElements = document.getElementsByClassName('compile_error');
-		for (let i = targetElements.length - 1; i >= 0; i--) {
-			targetElements[i].remove();
-		}
-	}
-
 	window.onload = function() {
 		editor = ace.edit(source_id);
+		elemAceTextLayer = elemSrc.getElementsByClassName('ace_text-layer')[0];
 		editor.setOptions({
 			theme: 'ace/theme/kuin',
 			mode: 'ace/mode/kuin',
@@ -365,8 +350,6 @@
 			minLines: 10,
 			maxLines: 35,
 		});
-
-		editor.on("change", removeErrorBox);
 
 		{
 			let paravalsStr = location.href.split('?')[1];
