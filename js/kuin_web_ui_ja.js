@@ -13,10 +13,10 @@
 
 (function(d) {
 	let logTypeId = '';
-	let executeButton = d.getElementById('execute_button');
-	let log = d.getElementById('log');
-	let input = d.getElementById('input');
-	let output = d.getElementById('output');
+	const executeButton = d.getElementById('execute_button');
+	const logElem = d.getElementById('log');
+	const input = d.getElementById('input');
+	const output = d.getElementById('output');
 	let included = false;
 	let editor;
 	let isButtonEnable = false;
@@ -27,7 +27,7 @@
 
 	removeLog();
 	output.value = '';
-	log.addEventListener('click', selectLog);
+	logElem.addEventListener('click', selectLog);
 	output.addEventListener('focus', function() { this.select(); });
 	elemSrc.addEventListener('focus', function() {
 		d.getElementById('buttonTweet').style.visibility = 'hidden'; 
@@ -240,8 +240,38 @@
 	}
 
 	function removeLog() {
-		while (log.firstChild) {
-			log.removeChild(log.firstChild);
+		while (logElem.firstChild) {
+			logElem.removeChild(logElem.firstChild);
+		}
+	}
+
+	function addErrorHighlight(row, col) {
+		let elemLines = elemAceTextLayer.getElementsByClassName('ace_line');
+		let topPx = parseInt(elemLines[0].style.top);
+		let heightPx = parseInt(elemLines[0].style.height);
+		let firstRow = topPx / heightPx;
+		let lastRow = firstRow + elemLines.length - 1;
+		if (firstRow <= row && row <= lastRow) {
+			const targetLeft = editor.renderer.textToScreenCoordinates(row, col).pageX;
+			const elems = elemLines[row - firstRow].children;
+			for (let i = 0; i < elems.length; i++) {
+				const elemLeft = elems[i].getBoundingClientRect().x;
+				if (elemLeft >= targetLeft) {
+					elems[i].classList.add('ace_error');
+					break;
+				}
+			}
+		}
+	}
+
+	function updateErrorHighlight() {
+		const logLists = logElem.children;
+		for (let i = 0; i < logLists.length; i++) {
+			const data = logLists[i].getAttribute('data-pos');
+			if (data != null) {
+				const pos = JSON.parse(data);
+				addErrorHighlight(pos.row, pos.col);
+			}
 		}
 	}
 
@@ -268,26 +298,10 @@
 					let row = match[1] - 1;
 					let col = match[2] - 1;
 					li.setAttribute('data-pos', `{"row": ${row}, "col": ${col}}`);
-
-					let elemLines = elemAceTextLayer.getElementsByClassName('ace_line');
-					let topPx = parseInt(elemLines[0].style.top);
-					let heightPx = parseInt(elemLines[0].style.height);
-					let firstRow = topPx / heightPx;
-					let lastRow = firstRow + elemLines.length - 1;
-					if (firstRow <= row && row <= lastRow) {
-						const targetLeft = editor.renderer.textToScreenCoordinates(row, col).pageX;
-						const elems = elemLines[row - firstRow].children;
-						for (let i = 0; i < elems.length; i++) {
-							const elemLeft = elems[i].getBoundingClientRect().x;
-							if (elemLeft >= targetLeft) {
-								elems[i].classList.add('ace_error');
-								break;
-							}
-						}
-					}
+					addErrorHighlight(row, col);
 				}
 			}
-			log.appendChild(li);
+			logElem.appendChild(li);
 			logTypeId = '';
 		}
 	}
@@ -296,10 +310,8 @@
 		const data = e.target.getAttribute('data-pos');
 		if (data !== null) {
 			const pos = JSON.parse(data);
-			let row = pos.row;
-			let col = pos.col;
-			editor.navigateTo(row, col);
-			editor.scrollToLine(row, true, true);
+			editor.navigateTo(pos.row, pos.col);
+			editor.scrollToLine(pos.row, true, true);
 			editor.focus();
 		}
 	}
@@ -338,6 +350,9 @@
 	window.onload = function() {
 		editor = ace.edit(source_id);
 		elemAceTextLayer = elemSrc.getElementsByClassName('ace_text-layer')[0];
+		const config = { childList: true };
+		const observer = new MutationObserver(updateErrorHighlight);
+		observer.observe(elemAceTextLayer, config);
 		editor.setOptions({
 			theme: 'ace/theme/kuin',
 			mode: 'ace/mode/kuin',
