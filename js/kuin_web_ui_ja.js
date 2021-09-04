@@ -255,6 +255,10 @@
 			for (let i = 0; i < elems.length; i++) {
 				const elemLeft = elems[i].getBoundingClientRect().x;
 				if (elemLeft >= targetLeft - 1) {
+					let classList = elems[i].classList;
+					for (let j = 0; j < classList.length; j++) {
+						elems[i].classList.remove(classList[j]);
+					}
 					elems[i].classList.add('ace_error');
 					break;
 				}
