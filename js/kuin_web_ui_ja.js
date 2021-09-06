@@ -12,32 +12,35 @@
 }
 
 (function(d) {
-	let logTypeId = '';
-	const executeButton = d.getElementById('execute_button');
+	const paramNameSrc = 'src';
+	const paramNameInput = 'input';
 	const elemIdSrc = 'src';
 	const elemIdInput = 'input';
 	const elemSrc = d.getElementById(elemIdSrc);
 	const elemInput = d.getElementById(elemIdInput);
 	const elemOutput = d.getElementById('output');
+	const elemKBody = document.getElementById('k_body');
 	const elemLog = d.getElementById('log');
-	const paramNameSrc = 'src';
-	const paramNameInput = 'input';
+	const elemPlatform = document.getElementById('platform');
+	const elemExecuteButton = d.getElementById('execute_button');
+	const elemTweetButton = document.getElementById('buttonTweet');
+	let logTypeId = '';
+	let elemAceTextLayer;
 	let included = false;
 	let editor;
 	let isButtonEnable = false;
-	let version = '';
-	let elemAceTextLayer;
-	let errorPosNum = 0;
+	let versionOfKuin = '';
+	let errorPosNum = 0; // 「位置情報付きのエラー」の数
 
 	removeLog();
 	elemOutput.value = '';
-	elemLog.addEventListener('click', selectLog);
 	elemOutput.addEventListener('focus', function() { this.select(); });
 	elemSrc.addEventListener('focus', function() {
 		d.getElementById('buttonTweet').style.visibility = 'hidden'; 
 	});
+	elemLog.addEventListener('click', selectLog);
 
-	executeButton.addEventListener('click', onClick);
+	elemExecuteButton.addEventListener('click', onClick);
 	enableButton();
 
 	function onClick() {
@@ -46,13 +49,12 @@
 		}
 		disableButton();
 		errorPosNum = 0;
-		let srcEncoded = encodeURIComponent(editor.getValue());
-		let inputEncoded = encodeURIComponent(elemInput.value);
+		const srcEncoded = encodeURIComponent(editor.getValue());
+		const inputEncoded = encodeURIComponent(elemInput.value);
 		updateTweetButton(srcEncoded, inputEncoded);
 
-		document.getElementById('k_body').textContent = '';
-		let platforms = document.getElementById('platform');
-		let platform = platforms.options[platforms.selectedIndex].value;
+		elemKBody.textContent = '';
+		const platform = elemPlatform.options[elemPlatform.selectedIndex].value;
 		let target = null;
 		let write = null;
 		let extra = null;
@@ -73,11 +75,11 @@
 		} else if (platform === 'cpp') {
 			target = 'cpp';
 			write = function(p, s, c) {
-				const langName = 'Kuin Programming Language' + version;
-				c.S += '#if 0 // ' + langName + '\n';
-				c.S += editor.getValue() + '\n';
-				c.S += '#endif\n';
-				c.S += '// C++ code below is transpiled from Kuin code above by ' + langName + '\n';
+				const langName = `Kuin Programming Language ${versionOfKuin}`;
+				c.S += `#if 0 // ${langName}\n`;
+				c.S += `${editor.getValue()}\n`;
+				c.S += `#endif\n`;
+				c.S += `// C++ code below is transpiled from Kuin code above by ${langName}\n`;
 				c.S += fromUtf8(s);
 			};
 			extra = ['-x', 'merge'];
@@ -108,8 +110,8 @@
 			};
 			d.getElementsByTagName('head')[0].appendChild(script);
 		} else {
-			if (version != '') {
-				addLog('Kuin Programming Language' + version);
+			if (versionOfKuin != '') {
+				addLog('Kuin Programming Language ' + versionOfKuin);
 			}
 			setTimeout(function () { run(true); }, 0);
 		}
@@ -120,9 +122,9 @@
 					['-i', 'main.kn', '-s', 'res/sys/', '-e', target].concat(extra),
 				readFile:
 					function(p) {
-						let src = editor.getValue();
+						const srcValue = editor.getValue();
 						if (p === './main.kn') {
-							return toUtf8(src);
+							return toUtf8(srcValue);
 						}
 						return null;
 					},
@@ -136,17 +138,17 @@
 					}
 			});
 			if (platform === 'run') {
-				let inputStr = elemInput.value;
+				const inputStr = elemInput.value;
 				let data = [];
 				for (let i = 0; i < inputStr.length; i++) {
 					data.push(inputStr.charCodeAt(i));
 				}
 				let idx = 0;
-				let print =
+				const print =
 					function(s) {
 						elemOutput.value += s;
 					};
-				let inputLetter =
+				const inputLetter =
 					function() {
 						if (idx < data.length) {
 							return data[idx++];
@@ -154,10 +156,13 @@
 							return 0xFFFF;
 						}
 					};
-				eval(code.S + ' if (typeof out !== "undefined") { out({'
-					+ 'print:' + print.toString() + ', '
-					+ 'inputLetter:' + inputLetter.toString()
-					+ '}); }');
+				eval(`${code.S}
+					if (typeof out !== 'undefined') {
+						out({
+							print: ${print.toString()},
+							inputLetter: ${inputLetter.toString()}
+						});
+					}`);
 			} else {
 				elemOutput.value = code.S;
 			}
@@ -251,9 +256,9 @@
 	}
 
 	function addErrorHighlight(row, col) {
-		let elemLines = elemAceTextLayer.getElementsByClassName('ace_line');
-		let firstRow = parseInt(elemLines[0].style.top) / parseInt(elemLines[0].style.height);
-		let lastRow = firstRow + elemLines.length - 1;
+		const elemLines = elemAceTextLayer.getElementsByClassName('ace_line');
+		const firstRow = parseInt(elemLines[0].style.top) / parseInt(elemLines[0].style.height);
+		const lastRow = firstRow + elemLines.length - 1;
 		if (firstRow <= row && row <= lastRow) {
 			const targetLeft = editor.renderer.textToScreenCoordinates(row, col).pageX;
 			const elems = elemLines[row - firstRow].children;
@@ -284,10 +289,10 @@
 	}
 
 	function addLog(str) {
-		if (version == '') {
+		if (versionOfKuin == '') {
 			let match;
 			if (match = str.match(/^Kuin Programming Language (v\.\d{4}\.\d+\.\d+)\s*$/)) {
-				version = ' ' + match[1];
+				versionOfKuin = match[1];
 			}
 		}
 		if (str.match(/^0x[\dA-F]{8}: /)) {
@@ -298,14 +303,26 @@
 			let li = document.createElement('li');
 			li.textContent = logTypeId + str;
 			if (logTypeId.match(/^0x0003/)) {
-				li.style.backgroundColor = '#f5f5f5';
+				if (logTypeId.match(/^0x00030001/)) {
+					li.style.backgroundColor = '#aaffaa';
+				} else if (logTypeId.match(/^0x00030002/)) {
+					li.style.backgroundColor = '#db5671';
+					li.style.color = '#ffffff';
+				} else {
+					li.style.backgroundColor = '#f5f5f5';
+				}
 			} else {
-				li.style.backgroundColor = '#ffeff7';
+				if (logTypeId.match(/^0x000[12]/)) {
+					li.style.backgroundColor = '#ffeff7';
+					li.style.color = '#db5671';
+				} else {
+					li.style.backgroundColor = '#ffddff';
+				}
 				let match;
 				if (match = logTypeId.match(/^^0x[\dA-F]{8}: \[\\main: (\d+), (\d+)\]/)) {
 					errorPosNum++;
-					let row = match[1] - 1;
-					let col = match[2] - 1;
+					const row = match[1] - 1;
+					const col = match[2] - 1;
 					li.setAttribute('data-pos', `{"row": ${row}, "col": ${col}}`);
 					addErrorHighlight(row, col);
 				}
@@ -326,14 +343,15 @@
 	}
 
 	function updateTweetButton(srcEncoded, inputEncoded) {
-		let b = document.getElementById('buttonTweet');
-		while (b.firstChild != null) b.removeChild(b.firstChild);
-		let ele = document.createElement('a');
-		ele.setAttribute('href', 'https://twitter.com/share');
-		ele.setAttribute('class', 'twitter-share-button');
-		ele.setAttribute('data-text', 'KuinWeb');
+		while (elemTweetButton.firstChild != null) {
+			elemTweetButton.removeChild(elemTweetButton.firstChild);
+		}
+		const elemTweet = document.createElement('a');
+		elemTweet.setAttribute('href', 'https://twitter.com/share');
+		elemTweet.setAttribute('class', 'twitter-share-button');
+		elemTweet.setAttribute('data-text', 'KuinWeb');
 		let href = location.href;
-		let questionPos = href.search('\\?');
+		const questionPos = href.search('\\?');
 		if (questionPos != -1) {
 			href = href.substr(0, questionPos);
 		}
@@ -348,10 +366,10 @@
 			inputData = c + paramNameInput + '=' + inputEncoded;
 			c = '&';
 		}
-		ele.setAttribute('data-url', href + srcData + inputData);
-		ele.setAttribute('data-hashtags', 'KuinWeb');
-		ele.appendChild(document.createTextNode('tweet'));
-		b.appendChild(ele);
+		elemTweet.setAttribute('data-url', href + srcData + inputData);
+		elemTweet.setAttribute('data-hashtags', 'KuinWeb');
+		elemTweet.appendChild(document.createTextNode('tweet'));
+		elemTweetButton.appendChild(elemTweet);
 
 		twttr.widgets.load();
 	}
@@ -382,18 +400,19 @@
 		});
 
 		{
-			let paravalsStr = location.href.split('?')[1];
-			if (paravalsStr == null) paravalsStr = '';
-			for (const paravals of paravalsStr.split('&')) {
-				let paraval = paravals.split('=');
-				if (paraval.length == 2) {
-					if (paraval[0] == paramNameSrc) {
-						let src = decodeURIComponent(paraval[1]);
-						editor.setValue(src);
-						editor.navigateTo(0, 0);
-					} else if (paraval[0] == paramNameInput) {
-						const inputVaalue = decodeURIComponent(paraval[1]);
-						elemInput.value = inputVaalue;
+			const paravalsStr = location.href.split('?')[1];
+			if (paravalsStr != null) {
+				for (const paravals of paravalsStr.split('&')) {
+					let paraval = paravals.split('=');
+					if (paraval.length == 2) {
+						if (paraval[0] == paramNameSrc) {
+							const srcValue = decodeURIComponent(paraval[1]);
+							editor.setValue(srcValue);
+							editor.navigateTo(0, 0);
+						} else if (paraval[0] == paramNameInput) {
+							const inputValue = decodeURIComponent(paraval[1]);
+							elemInput.value = inputValue;
+						}
 					}
 				}
 			}
@@ -403,16 +422,16 @@
 
 	function enableButton() {
 		isButtonEnable = true;
-		executeButton.innerHTML = '処理開始<img src="./images/kuin.png?2021-08-06" width="28" height="28" />';
-		executeButton.classList.remove('init');
-		executeButton.classList.remove('disable');
-		executeButton.classList.add('enable');
+		elemExecuteButton.innerHTML = '処理開始<img src="./images/kuin.png?2021-08-06" width="28" height="28" />';
+		elemExecuteButton.classList.remove('init');
+		elemExecuteButton.classList.remove('disable');
+		elemExecuteButton.classList.add('enable');
 	}
 
 	function disableButton() {
 		isButtonEnable = false;
-		executeButton.innerHTML = '処理中...';
-		executeButton.classList.remove('enable');
-		executeButton.classList.add('disable');
+		elemExecuteButton.innerHTML = '処理中...';
+		elemExecuteButton.classList.remove('enable');
+		elemExecuteButton.classList.add('disable');
 	}
 })
