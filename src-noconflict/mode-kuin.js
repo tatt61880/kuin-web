@@ -127,17 +127,56 @@ oop.inherits(KuinHighlightRules, TextHighlightRules);
 exports.KuinHighlightRules = KuinHighlightRules;
 });
 
+ace.define("ace/mode/folding/kuin",["require","exports","module","ace/lib/oop","ace/range","ace/mode/folding/fold_mode"], function(require, exports, module) {
+"use strict";
+
+var oop = require("../../lib/oop");
+var Range = require("../../range").Range;
+var BaseFoldMode = require("./fold_mode").FoldMode;
+
+var FoldMode = exports.FoldMode = function(commentRegex) {
+};
+oop.inherits(FoldMode, BaseFoldMode);
+
+(function () {
+    this.foldingStartMarker = /^\s*(\+?\*?func|\+?class|\+?enum|if|switch|while|for|try|block)\b/;
+    this.foldingStopMarker = /^\s*end\b/;
+
+    this.getFoldWidgetRange = function(session, foldStyle, row) {
+        var start = {row: row, column: session.getLine(row).length};
+        var level = 0;
+        for (; row < session.getLength(); row++) {
+            var line = session.getLine(row);
+            if (line.match(this.foldingStartMarker)) {
+                level++;
+            } else if(line.match(this.foldingStopMarker)) {
+                level--;
+                if (level == 0) {
+                    row--;
+                    var end = {row: row, column: session.getLine(row).length};
+                    return new Range(start.row, start.column, end.row, end.column);
+                }
+            }
+        }
+        return new Range(start.row, start.column, start.row, start.column);
+    };
+}).call(FoldMode.prototype);
+
+});
+
 ace.define("ace/mode/kuin",["require","exports","module","ace/lib/oop","ace/mode/text","ace/mode/kuin_highlight_rules","ace/range"], function(require, exports, module) {
 "use strict";
 
 var oop = require("../lib/oop");
+var Range = require("../range").Range;
 var TextMode = require("./text").Mode;
 var KuinHighlightRules = require("./kuin_highlight_rules").KuinHighlightRules;
-var Range = require("../range").Range;
+var KuinFoldMode = require("./folding/kuin").FoldMode;
 
 var Mode = function() {
     this.HighlightRules = KuinHighlightRules;
     this.$behaviour = this.$defaultBehaviour;
+    this.foldingRules = new KuinFoldMode();
 };
 oop.inherits(Mode, TextMode);
 
