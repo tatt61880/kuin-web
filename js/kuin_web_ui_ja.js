@@ -1,17 +1,20 @@
 'use strict';
-!function(f) {
-  const d = document;
+(function(func) {
   function h() {
-    d.removeEventListener('DOMContentLoaded', h);
+    document.removeEventListener('DOMContentLoaded', h);
     removeEventListener('load', h);
-    f(d);
+    func(document);
   }
-	'complete' === d.readyState || 'loading' !== d.readyState && !d.documentElement.doScroll ?
-		setTimeout(f) :
-		(d.addEventListener('DOMContentLoaded', h), addEventListener('load', h));
-}
+  if (document.readyState === 'complete' || document.readyState !== 'loading' &&
+      !document.documentElement.doScroll) {
+    setTimeout(func);
+  } else {
+    document.addEventListener('DOMContentLoaded', h);
+    addEventListener('load', h);
+  }
+})(func);
 
-(function(d) {
+function func(d) {
   const paramNameSrc = 'src';
   const paramNameInput = 'input';
   const elemIdSrc = 'src';
@@ -112,7 +115,7 @@
           }, 0);
         }
       };
-      d.getElementsByTagName('head')[0].appendChild(script);
+      document.getElementsByTagName('head')[0].appendChild(script);
     } else {
       if (versionOfKuin != '') {
         addLog('Kuin Programming Language ' + versionOfKuin);
@@ -441,4 +444,4 @@
     elemExecuteButton.classList.remove('enable');
     elemExecuteButton.classList.add('disable');
   }
-});
+};
