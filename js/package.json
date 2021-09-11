@@ -5,8 +5,7 @@
   "main": "kuin_web_ui_ja.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "lint": "./node_modules/.bin/eslint ./kuin_web_ui_ja.js",
-    "fix": "./node_modules/.bin/eslint ./kuin_web_ui_ja.js --fix"
+    "lint": "./node_modules/.bin/eslint ./kuin_web_ui_ja.js --fix"
   },
   "keywords": [],
   "author": "",
