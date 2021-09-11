@@ -83,8 +83,10 @@ function func(d) {
         const langName = `Kuin Programming Language ${versionOfKuin}`;
         c.S += `#if 0 // ${langName}\n`;
         c.S += `${editor.getValue()}\n`;
-        c.S += `#endif\n`;
-        c.S += `// C++ code below is transpiled from Kuin code above by ${langName}\n`;
+        c.S += `#endif\n\n`;
+        c.S += `// C++ code below is\n`;
+        c.S += `//   transpiled from Kuin code above\n`;
+        c.S += `//   by ${langName}\n`;
         c.S += fromUtf8(s);
       };
       extra = ['-x', 'merge'];
@@ -102,7 +104,9 @@ function func(d) {
       const script = document.createElement('script');
       script.src = 'js/' + scriptName + '?2021-07-17';
       script.onload = function() {
-        if (!this.readyState || this.readyState === 'loaded' || this.readyState === 'complete') {
+        if (!this.readyState ||
+            this.readyState === 'loaded' ||
+            this.readyState === 'complete') {
           addLog(scriptName + ' のロード完了。');
           const tmp = extra;
           extra = ['-v'];
@@ -128,23 +132,23 @@ function func(d) {
     function run(enable) {
       kuin({
         cmdLine:
-					['-i', 'main.kn', '-s', 'res/sys/', '-e', target].concat(extra),
+          ['-i', 'main.kn', '-s', 'res/sys/', '-e', target].concat(extra),
         readFile:
-					function(p) {
-					  const srcValue = editor.getValue();
-					  if (p === './main.kn') {
-					    return toUtf8(srcValue);
-					  }
-					  return null;
-					},
+          function(p) {
+            const srcValue = editor.getValue();
+            if (p === './main.kn') {
+              return toUtf8(srcValue);
+            }
+            return null;
+          },
         writeFile:
-					function(p, s) {
-					  write(p, s, code);
-					},
+          function(p, s) {
+            write(p, s, code);
+          },
         print:
-					function(s) {
-					  addLog(s);
-					},
+          function(s) {
+            addLog(s);
+          },
       });
       if (platform === 'run') {
         const inputStr = elemInput.value;
@@ -154,24 +158,24 @@ function func(d) {
         }
         let idx = 0;
         const print =
-					function(s) {
-					  elemOutput.value += s;
-					};
+          function(s) {
+            elemOutput.value += s;
+          };
         const inputLetter =
-					function() {
-					  if (idx < data.length) {
-					    return data[idx++];
-					  } else {
-					    return 0xFFFF;
-					  }
-					};
+          function() {
+            if (idx < data.length) {
+              return data[idx++];
+            } else {
+              return 0xFFFF;
+            }
+          };
         eval(`${code.S}
-					if (typeof out !== 'undefined') {
-						out({
-							print: ${print.toString()},
-							inputLetter: ${inputLetter.toString()}
-						});
-					}`);
+          if (typeof out !== 'undefined') {
+            out({
+              print: ${print.toString()},
+              inputLetter: ${inputLetter.toString()}
+            });
+          }`);
       } else {
         elemOutput.value = code.S;
       }
@@ -183,7 +187,8 @@ function func(d) {
     function toUtf8(s) {
       let r = new Uint8Array(0);
       for (let i = 0; i < s.length; i++) {
-        let data = s.charCodeAt(i), u;
+        let data = s.charCodeAt(i);
+        let u;
         if ((data >> 7) == 0) {
           u = data;
           r = concat(r, Uint8Array.from([u & 0xff]));
@@ -198,13 +203,15 @@ function func(d) {
             data >>= 6;
             if ((data >> 4) == 0) {
               u |= 0xe0 | data;
-              r = concat(r, Uint8Array.from([u & 0xff, (u >> 8) & 0xff, (u >> 16) & 0xff]));
+              r = concat(r, Uint8Array.from([u & 0xff, (u >> 8) & 0xff,
+                (u >> 16) & 0xff]));
             } else {
               u = (u | 0x80 | (data & 0x3f)) << 8;
               data >>= 6;
               if ((data >> 3) == 0) {
                 u |= 0xf0 | data;
-                r = concat(r, Uint8Array.from([u & 0xff, (u >> 8) & 0xff, (u >> 16) & 0xff, (u >> 24) & 0xff]));
+                r = concat(r, Uint8Array.from([u & 0xff, (u >> 8) & 0xff,
+                  (u >> 16) & 0xff, (u >> 24) & 0xff]));
               } else {
                 return r;
               }
@@ -267,10 +274,12 @@ function func(d) {
 
   function addErrorHighlight(row, col) {
     const elemLines = elemAceTextLayer.getElementsByClassName('ace_line');
-    const firstRow = parseInt(elemLines[0].style.top) / parseInt(elemLines[0].style.height);
+    const firstRow = parseInt(elemLines[0].style.top) /
+        parseInt(elemLines[0].style.height);
     const lastRow = firstRow + elemLines.length - 1;
     if (firstRow <= row && row <= lastRow) {
-      const targetLeft = editor.renderer.textToScreenCoordinates(row, col).pageX;
+      const targetLeft =
+          editor.renderer.textToScreenCoordinates(row, col).pageX;
       const elems = elemLines[row - firstRow].children;
       for (const elem of elems) {
         const elemLeft = elem.getBoundingClientRect().x;
@@ -300,8 +309,8 @@ function func(d) {
 
   function addLog(str) {
     if (versionOfKuin == '') {
-      let match;
-      if (match = str.match(/^Kuin Programming Language (v\.\d{4}\.\d+\.\d+)\s*$/)) {
+      const match = str.match(/^Kuin Programming Language (v.*)\s*$/);
+      if (match) {
         versionOfKuin = match[1];
       }
     }
@@ -328,8 +337,8 @@ function func(d) {
         } else {
           li.style.backgroundColor = '#ffddff';
         }
-        let match;
-        if (match = logTypeId.match(/^^0x[\dA-F]{8}: \[\\main: (\d+), (\d+)\]/)) {
+        const match = logTypeId.match(/^^0x[\dA-F]+: \[\\main: (\d+), (\d+)\]/);
+        if (match) {
           errorPosNum++;
           const row = match[1] - 1;
           const col = match[2] - 1;
@@ -432,7 +441,8 @@ function func(d) {
 
   function enableButton() {
     isButtonEnable = true;
-    elemExecuteButton.innerHTML = '処理開始<img src="./images/kuin.png?2021-08-06" width="28" height="28" />';
+    elemExecuteButton.innerHTML = '処理開始' +
+        '<img src="./images/kuin.png?2021-08-06" width="28" height="28" />';
     elemExecuteButton.classList.remove('init');
     elemExecuteButton.classList.remove('disable');
     elemExecuteButton.classList.add('enable');
