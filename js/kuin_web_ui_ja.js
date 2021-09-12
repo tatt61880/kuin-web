@@ -38,7 +38,7 @@ function func(d) {
   removeLog();
   elemOutput.value = '';
   elemOutput.addEventListener('focus', function() {
-    this.select();
+    elemOutput.select();
   });
   elemSrc.addEventListener('focus', function() {
     d.getElementById('buttonTweet').style.visibility = 'hidden';
