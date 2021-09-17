@@ -102,7 +102,7 @@ function func(d) {
       const scriptName = 'kuin_ja.js';
       addLog(scriptName + ' のロード中。');
       const script = document.createElement('script');
-      script.src = 'js/' + scriptName + '?2021-07-17';
+      script.src = 'js/' + scriptName + '?2021-09-17';
       script.onload = function() {
         if (!this.readyState ||
             this.readyState === 'loaded' ||
