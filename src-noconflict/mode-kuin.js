@@ -152,8 +152,8 @@ oop.inherits(FoldMode, BaseFoldMode);
             } else if(line.match(this.foldingStopMarker)) {
                 level--;
                 if (level == 0) {
-                    row--;
-                    var end = {row: row, column: session.getLine(row).length};
+                    var column = session.getLine(row).search('end');
+                    var end = {row: row, column: column};
                     return new Range(start.row, start.column, end.row, end.column);
                 }
             }
