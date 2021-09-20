@@ -393,7 +393,7 @@ function main(d) {
       childList: true,
       subtree: true,
     };
-    const observer = new MutationObserver(updateErrorHighlight);
+    const observer = new window.MutationObserver(updateErrorHighlight);
     observer.observe(elemAceTextLayer, config);
     editor.setOptions({
       theme: 'ace/theme/kuin',
