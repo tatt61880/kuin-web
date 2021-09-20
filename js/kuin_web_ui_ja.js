@@ -2,19 +2,12 @@
 (function(func) {
   function h() {
     document.removeEventListener('DOMContentLoaded', h);
-    removeEventListener('load', h);
     func(document);
   }
-  if (document.readyState === 'complete' || document.readyState !== 'loading' &&
-      !document.documentElement.doScroll) {
-    setTimeout(func);
-  } else {
-    document.addEventListener('DOMContentLoaded', h);
-    addEventListener('load', h);
-  }
-})(func);
+  document.addEventListener('DOMContentLoaded', h);
+})(main);
 
-function func(d) {
+function main(d) {
   const paramNameSrc = 'src';
   const paramNameInput = 'input';
   const elemIdSrc = 'src';
