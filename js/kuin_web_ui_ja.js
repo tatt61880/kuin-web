@@ -1,11 +1,11 @@
 'use strict';
-(function(func) {
+(function() {
   function h() {
     document.removeEventListener('DOMContentLoaded', h);
-    func(document);
+    main(document);
   }
   document.addEventListener('DOMContentLoaded', h);
-})(main);
+})();
 
 function main(d) {
   const paramNameSrc = 'src';
