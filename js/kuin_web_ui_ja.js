@@ -277,9 +277,6 @@ function main(d) {
       for (const elem of elems) {
         const elemLeft = elem.getBoundingClientRect().x;
         if (elemLeft >= targetLeft - 1) {
-          for (const className of elem.classList) {
-            elem.classList.remove(className);
-          }
           elem.classList.add('ace_error');
           break;
         }

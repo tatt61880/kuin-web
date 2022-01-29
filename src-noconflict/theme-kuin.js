@@ -56,8 +56,7 @@ exports.cssText = ".ace-kuin .ace_gutter {\
 	color: #009BEA;\
 }\
 .ace-kuin .ace_error {\
-	color: #FFFFFF;\
-	background-color: #FF0000;\
+	background:linear-gradient(transparent 85%, red 0%);\
 }\
 .ace-kuin .ace_variable.ace_global {\
 	color: #CC00F6;\
