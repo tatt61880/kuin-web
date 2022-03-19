@@ -18,7 +18,7 @@ exports.cssText = ".ace-kuin .ace_gutter {\
 	color: #000000;\
 }\
 .ace-kuin .ace_marker-layer .ace_selection {\
-	background: rgba(128, 128, 128, 0.20);\
+	background: rgba(150, 255, 150, 0.50);\
 }\
 .ace-kuin.ace_multiselect .ace_selection.ace_start {\
 	box-shadow: 0 0 3px 0px #141414;\
