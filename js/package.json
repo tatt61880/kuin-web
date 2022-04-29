@@ -1,18 +1,22 @@
 {
-  "name": "js",
+  "name": "kuin-web",
   "version": "1.0.0",
-  "description": "",
+  "description": "kuin-web",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tatt61880/kuin-web.git"
+  },
   "main": "kuin_web_ui_ja.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "lint": "./node_modules/.bin/eslint ./kuin_web_ui_ja.js --fix"
+    "lint": "eslint ./kuin_web_ui_ja.js --fix"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "babel-eslint": "^8.2.6",
-    "eslint": "^4.19.1",
+    "babel-eslint": "^10.0.3",
+    "eslint": "^6.8.0",
     "eslint-config-google": "^0.14.0"
   }
 }
