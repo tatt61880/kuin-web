@@ -1,30 +1,28 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
+  <title>kuin-web</title>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=870">
   <link rel="icon" href="./images/favicon.png" type="image/png">
   <link rel="shortcut icon" href="./images/favicon.png" type="image/png">
   <link rel="apple-touch-icon" sizes="180x180" href="./images/apple-touch-icon.png">
-  <link rel="stylesheet" href="common.css?2022-05-07" type="text/css">
-  <link rel="stylesheet" href="article.css" type="text/css">
+
+  <link rel="stylesheet" href="common.css?2022.05.14">
+  <link rel="stylesheet" href="article.css?2022.05.14">
+  <link rel="stylesheet" href="style.css?2022.05.14">
+
   <script async src="https://platform.twitter.com/widgets.js"></script>
   <script src="src-noconflict/ace.js?2020-07-17"></script>
   <script src="src-noconflict/ext-language_tools.js?2020-07-17"></script>
   <script src="js/kuin_web_ui_ja.js?2022-01-30"></script>
-  <style>
-#log li {
-  list-style-type:none;
-  padding:3px 10px;
-  border-bottom:1px solid #84b2e0;
-}
-  </style>
-  <title>KuinWeb</title>
 </head>
+
 <body>
 <div id="container" class="pl_pc">
 <div id="main_ja" class="main">
   <div id="article">
+    <h1><img class="favicon" src="./images/favicon.png" alt="favicon">kuin-web</h1>
     <pre id="src" style="height: 400px;">func main()
 	const max: int :: 101
 	do cui@print("\{max}以下の素数を出力します。\n")
@@ -33,7 +31,8 @@
 			do cui@print("\{i}\n")
 		end if
 	end for
-end func</pre>
+end func
+</pre>
     <div style="width:50%; float:left">
       <div class="block" style="text-indent:0; font-size:16px; margin:10px; border:0;">
         <button id="execute_button" type="button" class="init">-</button>&nbsp;&nbsp;
