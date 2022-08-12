@@ -1,0 +1,42 @@
+{
+  "parserOptions": {
+    "parser": "@babel/eslint-parser",
+    "requireConfigFile": false
+  },
+  "extends": "eslint:recommended",
+  "globals": {
+    "clearTimeout": true,
+    "console": true,
+    "document": true,
+    "localStorage": true,
+    "location": true,
+    "setTimeout": true,
+    "window": true
+  },
+  "rules": {
+    "comma-spacing": "error",
+    "computed-property-spacing": "error",
+    "func-call-spacing": ["error", "never"],
+    "indent": ["error", 2],
+    "key-spacing": "error",
+    "keyword-spacing": "error",
+    "no-console": "off",
+    "no-constant-condition": ["error", { "checkLoops": false }],
+    "no-empty": ["error", {"allowEmptyCatch": true}],
+    "no-extra-semi": "error",
+    "no-multi-spaces": "error",
+    "no-multiple-empty-lines": ["error", {"max": 1, "maxEOF": 0}],
+    "no-unneeded-ternary": "error",
+    "no-unexpected-multiline": "error",
+    "no-var": "error",
+    "quotes": ["error", "single"],
+    "semi": "error",
+    "space-before-blocks": ["error", "always"],
+    "space-before-function-paren": ["error", "never"],
+    "space-in-parens": ["error", "never"],
+    "space-infix-ops": "error"
+  },
+  "env": {
+    "es2021": true
+  }
+}

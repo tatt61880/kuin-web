@@ -15,11 +15,11 @@ function main(d) {
   const elemSrc = d.getElementById(elemIdSrc);
   const elemInput = d.getElementById(elemIdInput);
   const elemOutput = d.getElementById('output');
-  const elemKBody = document.getElementById('k_body');
+  const elemKBody = d.getElementById('k_body');
   const elemLog = d.getElementById('log');
-  const elemPlatform = document.getElementById('platform');
-  const elemExecuteButton = d.getElementById('execute_button');
-  const elemTweetButton = document.getElementById('buttonTweet');
+  const elemPlatform = d.getElementById('platform');
+  const elemExecuteButton = d.getElementById('execute-button');
+  const elemTweetButton = d.getElementById('tweet-button');
   let logTypeId = '';
   let elemAceTextLayer;
   let included = false;
@@ -34,7 +34,7 @@ function main(d) {
     elemOutput.select();
   });
   elemSrc.addEventListener('focus', function() {
-    d.getElementById('buttonTweet').style.visibility = 'hidden';
+    d.getElementById('tweet-button').style.visibility = 'hidden';
   });
   elemLog.addEventListener('click', selectLog);
 
@@ -76,9 +76,9 @@ function main(d) {
         const langName = `Kuin Programming Language ${versionOfKuin}`;
         c.S += `#if 0 // ${langName}\n`;
         c.S += `${editor.getValue()}\n`;
-        c.S += `#endif\n\n`;
-        c.S += `// C++ code below is\n`;
-        c.S += `//   transpiled from Kuin code above\n`;
+        c.S += '#endif\n\n';
+        c.S += '// C++ code below is\n';
+        c.S += '//   transpiled from Kuin code above\n';
         c.S += `//   by ${langName}\n`;
         c.S += fromUtf8(s);
       };
@@ -95,7 +95,7 @@ function main(d) {
       const scriptName = 'kuin_ja.js';
       addLog(scriptName + ' のロード中。');
       const script = document.createElement('script');
-      script.src = 'js/' + scriptName + '?2021-09-17';
+      script.src = 'lib/' + scriptName + '?2021-09-17';
       script.onload = function() {
         if (!this.readyState ||
             this.readyState === 'loaded' ||
@@ -123,7 +123,7 @@ function main(d) {
     }
 
     function run(enable) {
-      kuin({
+      kuin({ // eslint-disable-line no-undef
         cmdLine:
           ['-i', 'main.kn', '-s', 'res/sys/', '-e', target].concat(extra),
         readFile:
@@ -380,11 +380,11 @@ function main(d) {
     elemTweet.appendChild(document.createTextNode('tweet'));
     elemTweetButton.appendChild(elemTweet);
 
-    twttr.widgets.load();
+    twttr.widgets.load(); // eslint-disable-line no-undef
   }
 
   window.onload = function() {
-    editor = ace.edit(elemIdSrc);
+    editor = ace.edit(elemIdSrc); // eslint-disable-line no-undef
     elemAceTextLayer = elemSrc.getElementsByClassName('ace_text-layer')[0];
     const config = {
       childList: true,
@@ -444,4 +444,4 @@ function main(d) {
     elemExecuteButton.classList.remove('enable');
     elemExecuteButton.classList.add('disable');
   }
-};
+}

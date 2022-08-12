@@ -20,7 +20,7 @@ a:hover {
 }
 
 h1 {
-  margin: 0px;
+  margin: 0;
   border-bottom: 2px solid #8962b9;
   background-color: #aaffaa;
   font-size: 18px;
@@ -28,12 +28,12 @@ h1 {
 }
 
 #log li {
-  list-style-type:none;
-  padding:3px 10px;
-  border-bottom:1px solid #84b2e0;
+  list-style-type: none;
+  padding: 3px 10px;
+  border-bottom: 1px solid #84b2e0;
 }
 
-button#execute_button {
+button#execute-button {
   width: 140px;
   height: 60px;
   border-radius: 20px;
@@ -42,33 +42,33 @@ button#execute_button {
 }
 
 button.init {
-  color: #000;
-  background-color: #888;
+  color: #000000;
+  background-color: #888888;
   border: 2px solid #333333;
 }
 
 button.enable {
-  color: #000;
+  color: #000000;
   background-color: #aaffaa;
   border: 3px solid #008000;
 }
 
 button.disable {
-  color: #fff;
+  color: #ffffff;
   background-color: #db5671;
   border: 3px solid #a8233e;
 }
 
-.compile_error {
+.compile-error {
   z-index: 4;
   position: absolute;
-  background-color: rgba(255, 0, 0, 0.25);
+  background-color: rgb(0 255 0);
   pointer-events: none;
 }
 
 img.favicon {
   width: 16px;
   height: 16px;
-  margin: 0px 5px;
+  margin: 0 5px;
   vertical-align: middle;
 }

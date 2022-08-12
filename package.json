@@ -1,0 +1,29 @@
+{
+  "name": "kuin-web",
+  "version": "1.0.1",
+  "description": "kuin-web",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tatt61880/kuin-web.git"
+  },
+  "author": "@tatt61880",
+  "scripts": {
+    "eslint": "eslint ./src/*.js --fix",
+    "htmlhint": "htmlhint ./*.html",
+    "stylelint": "stylelint ./css/*.css --fix"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.18.10",
+    "@babel/eslint-parser": "^7.18.9",
+    "eslint": "^8.21.0",
+    "htmlhint": "^1.1.4",
+    "stylelint": "^14.9.1",
+    "stylelint-config-standard": "^26.0.0"
+  },
+  "stylelint": {
+    "extends": "stylelint-config-standard",
+    "rules": {
+      "color-hex-length": "long"
+    }
+  }
+}
