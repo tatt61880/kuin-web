@@ -1,10 +1,15 @@
 {
+  "private": true,
   "name": "kuin-web",
   "version": "1.0.1",
   "description": "kuin-web",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/tatt61880/kuin-web.git"
+  },
+  "author": "@tatt61880",
+  "bugs": {
+    "url": "https://github.com/tatt61880/kuin-web/issues"
   },
   "author": "@tatt61880",
   "scripts": {
