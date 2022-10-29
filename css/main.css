@@ -1,18 +1,18 @@
 @charset "utf-8";
 
-#container {
-  position: relative;
-  max-width: 1920px;
-  width: 100%;
-  min-height: 100vh;
-  margin: 0 auto;
-  overflow: hidden;
+body {
+  margin: 0;
+  background-color: #ccffff;
+  letter-spacing: 0.03em;
 }
 
-.main {
-  min-width: 870px;
-  width: 80%;
+#contents {
+  width: 870px;
   margin: 0 auto;
+  position: relative;
+  overflow: hidden;
+  background-color: white;
+  border-bottom: 2px solid #8962b9;
 }
 
 a:hover {
@@ -21,10 +21,21 @@ a:hover {
 
 h1 {
   margin: 0;
+  border-top: 2px solid #8962b9;
   border-bottom: 2px solid #8962b9;
   background-color: #aaffaa;
   font-size: 18px;
   text-align: center;
+}
+
+#src {
+  margin: 0;
+  padding: 0;
+}
+
+#log {
+  margin: 0;
+  padding: 0;
 }
 
 #log li {
@@ -33,12 +44,21 @@ h1 {
   border-bottom: 1px solid #84b2e0;
 }
 
-button#execute-button {
+#input,
+#output {
+  font-size: 1rem;
+}
+
+#execute-button {
   width: 140px;
   height: 60px;
   border-radius: 20px;
   font-size: 20px;
   font-weight: bold;
+}
+
+#execute-button img {
+  vertical-align: top;
 }
 
 button.init {
