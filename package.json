@@ -24,14 +24,5 @@
     "stylelint": "^14.9.1",
     "stylelint-config-recess-order": "^3.0.0",
     "stylelint-config-standard": "^26.0.0"
-  },
-  "stylelint": {
-    "extends": [
-      "stylelint-config-standard",
-      "stylelint-config-recess-order"
-    ],
-    "rules": {
-      "color-hex-length": "long"
-    }
   }
 }
