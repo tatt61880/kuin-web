@@ -2,14 +2,14 @@
 
 body {
   margin: 0;
-  background-color: #ccffff;
   letter-spacing: 0.03em;
+  background-color: #ccffff;
 }
 
 #contents {
+  position: relative;
   width: 870px;
   margin: 0 auto;
-  position: relative;
   overflow: hidden;
   background-color: white;
   border-top: 2px solid #8962b9;
@@ -17,13 +17,13 @@ body {
 }
 
 h2 {
-  background-color: #cc9fd8;
-  margin: 10px 40px;
   padding: 2px 12px;
+  margin: 10px 40px;
+  font-size: 0.9rem;
+  font-weight: bold;
   color: #ffffff;
   text-align: center;
-  font-weight: bold;
-  font-size: 0.9rem;
+  background-color: #cc9fd8;
 }
 
 p {
@@ -31,16 +31,16 @@ p {
 }
 
 div.block {
-  border-radius: 6px;
-  border: solid 2px #c6dc82;
-  margin: 10px;
   padding: 3px 8px;
+  margin: 10px;
   text-indent: 1em;
   background-color: #ffffff;
+  border: solid 2px #c6dc82;
+  border-radius: 6px;
 }
 
 .weak {
+  font-size: 0.9rem;
   line-height: 1.5em;
   color: #9292c2;
-  font-size: 0.9rem;
 }

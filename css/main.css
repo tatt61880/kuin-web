@@ -2,14 +2,14 @@
 
 body {
   margin: 0;
-  background-color: #ccffff;
   letter-spacing: 0.03em;
+  background-color: #ccffff;
 }
 
 #contents {
+  position: relative;
   width: 870px;
   margin: 0 auto;
-  position: relative;
   overflow: hidden;
   background-color: white;
   border-bottom: 2px solid #8962b9;
@@ -21,26 +21,26 @@ a:hover {
 
 h1 {
   margin: 0;
-  border-top: 2px solid #8962b9;
-  border-bottom: 2px solid #8962b9;
-  background-color: #aaffaa;
   font-size: 18px;
   text-align: center;
+  background-color: #aaffaa;
+  border-top: 2px solid #8962b9;
+  border-bottom: 2px solid #8962b9;
 }
 
 #src {
-  margin: 0;
   padding: 0;
+  margin: 0;
 }
 
 #log {
-  margin: 0;
   padding: 0;
+  margin: 0;
 }
 
 #log li {
-  list-style-type: none;
   padding: 3px 10px;
+  list-style-type: none;
   border-bottom: 1px solid #84b2e0;
 }
 
@@ -52,9 +52,9 @@ h1 {
 #execute-button {
   width: 150px;
   height: 60px;
-  border-radius: 20px;
   font-size: 20px;
   font-weight: bold;
+  border-radius: 20px;
 }
 
 #execute-button img {
@@ -80,10 +80,10 @@ button.disable {
 }
 
 .compile-error {
-  z-index: 4;
   position: absolute;
-  background-color: rgb(0 255 0);
+  z-index: 4;
   pointer-events: none;
+  background-color: rgb(0 255 0);
 }
 
 img.favicon {

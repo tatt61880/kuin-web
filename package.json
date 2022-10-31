@@ -11,7 +11,6 @@
   "bugs": {
     "url": "https://github.com/tatt61880/kuin-web/issues"
   },
-  "author": "@tatt61880",
   "scripts": {
     "eslint": "eslint ./src/*.js --fix",
     "htmlhint": "htmlhint ./*.html",
@@ -23,10 +22,14 @@
     "eslint": "^8.21.0",
     "htmlhint": "^1.1.4",
     "stylelint": "^14.9.1",
+    "stylelint-config-recess-order": "^3.0.0",
     "stylelint-config-standard": "^26.0.0"
   },
   "stylelint": {
-    "extends": "stylelint-config-standard",
+    "extends": [
+      "stylelint-config-standard",
+      "stylelint-config-recess-order"
+    ],
     "rules": {
       "color-hex-length": "long"
     }
