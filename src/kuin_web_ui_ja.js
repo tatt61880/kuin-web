@@ -103,7 +103,7 @@
         };
         document.getElementsByTagName('head')[0].appendChild(script);
       } else {
-        if (versionOfKuin != '') {
+        if (versionOfKuin !== '') {
           addLog('Kuin Programming Language ' + versionOfKuin);
         }
         setTimeout(function() {
@@ -171,26 +171,26 @@
         for (let i = 0; i < s.length; i++) {
           let data = s.charCodeAt(i);
           let u;
-          if ((data >> 7) == 0) {
+          if ((data >> 7) === 0) {
             u = data;
             r = concat(r, Uint8Array.from([u & 0xff]));
           } else {
             u = (0x80 | (data & 0x3f)) << 8;
             data >>= 6;
-            if ((data >> 5) == 0) {
+            if ((data >> 5) === 0) {
               u |= 0xc0 | data;
               r = concat(r, Uint8Array.from([u & 0xff, (u >> 8) & 0xff]));
             } else {
               u = (u | 0x80 | (data & 0x3f)) << 8;
               data >>= 6;
-              if ((data >> 4) == 0) {
+              if ((data >> 4) === 0) {
                 u |= 0xe0 | data;
                 r = concat(r, Uint8Array.from([u & 0xff, (u >> 8) & 0xff,
                   (u >> 16) & 0xff]));
               } else {
                 u = (u | 0x80 | (data & 0x3f)) << 8;
                 data >>= 6;
-                if ((data >> 3) == 0) {
+                if ((data >> 3) === 0) {
                   u |= 0xf0 | data;
                   r = concat(r, Uint8Array.from([u & 0xff, (u >> 8) & 0xff,
                     (u >> 16) & 0xff, (u >> 24) & 0xff]));
@@ -216,24 +216,24 @@
         let len;
         for (let i = 0; i < s.length; i++) {
           let c = s[i];
-          if ((c & 0xc0) == 0x80) {
+          if ((c & 0xc0) === 0x80) {
             continue;
           }
-          if ((c & 0x80) == 0x00) {
+          if ((c & 0x80) === 0x00) {
             len = 0;
-          } else if ((c & 0xe0) == 0xc0) {
+          } else if ((c & 0xe0) === 0xc0) {
             len = 1;
             c &= 0x1f;
-          } else if ((c & 0xf0) == 0xe0) {
+          } else if ((c & 0xf0) === 0xe0) {
             len = 2;
             c &= 0x0f;
-          } else if ((c & 0xf8) == 0xf0) {
+          } else if ((c & 0xf8) === 0xf0) {
             len = 3;
             c &= 0x07;
-          } else if ((c & 0xfc) == 0xf8) {
+          } else if ((c & 0xfc) === 0xf8) {
             len = 4;
             c &= 0x03;
-          } else if ((c & 0xfe) == 0xfc) {
+          } else if ((c & 0xfe) === 0xfc) {
             len = 5;
             c &= 0x01;
           }
@@ -274,12 +274,12 @@
     }
 
     function updateErrorHighlight() {
-      if (errorPosNum == 0) {
+      if (errorPosNum === 0) {
         return;
       }
       for (const logList of app.elems.log.children) {
         const data = logList.getAttribute('data-pos');
-        if (data != null) {
+        if (data !== null) {
           const pos = JSON.parse(data);
           addErrorHighlight(pos.row, pos.col);
         }
@@ -287,7 +287,7 @@
     }
 
     function addLog(str) {
-      if (versionOfKuin == '') {
+      if (versionOfKuin === '') {
         const match = str.match(/^Kuin Programming Language (v.*)\s*$/);
         if (match) {
           versionOfKuin = match[1];
@@ -341,7 +341,7 @@
     }
 
     function updateTweetButton(srcEncoded, inputEncoded) {
-      while (app.elems.button.tweet.firstChild != null) {
+      while (app.elems.button.tweet.firstChild !== null) {
         app.elems.button.tweet.removeChild(app.elems.button.tweet.firstChild);
       }
       const elemTweet = document.createElement('a');
@@ -350,7 +350,7 @@
       elemTweet.setAttribute('data-text', 'KuinWeb');
       let href = location.href;
       const questionPos = href.search('\\?');
-      if (questionPos != -1) {
+      if (questionPos !== -1) {
         href = href.substr(0, questionPos);
       }
       let c = '?';
@@ -399,15 +399,15 @@
 
       {
         const paravalsStr = location.href.split('?')[1];
-        if (paravalsStr != null) {
+        if (paravalsStr !== null) {
           for (const paravals of paravalsStr.split('&')) {
             const paraval = paravals.split('=');
-            if (paraval.length == 2) {
-              if (paraval[0] == paramNameSrc) {
+            if (paraval.length === 2) {
+              if (paraval[0] === paramNameSrc) {
                 const srcValue = decodeURIComponent(paraval[1]);
                 editor.setValue(srcValue);
                 editor.navigateTo(0, 0);
-              } else if (paraval[0] == paramNameInput) {
+              } else if (paraval[0] === paramNameInput) {
                 const inputValue = decodeURIComponent(paraval[1]);
                 app.elems.input.value = inputValue;
               }
