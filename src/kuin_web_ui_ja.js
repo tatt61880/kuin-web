@@ -399,7 +399,7 @@
 
       {
         const paravalsStr = location.href.split('?')[1];
-        if (paravalsStr !== null) {
+        if (paravalsStr !== undefined) {
           for (const paravals of paravalsStr.split('&')) {
             const paraval = paravals.split('=');
             if (paraval.length === 2) {
