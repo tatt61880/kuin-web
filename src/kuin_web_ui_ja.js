@@ -1,8 +1,10 @@
 (function () {
   'use strict';
 
-  const paramNameSrc = 'src';
-  const paramNameInput = 'input';
+  const PARAM_NAME = {
+    SRC: 'src',
+    INPUT: 'input',
+  };
   const app = window.app;
   let logTypeId = '';
   let elemAceTextLayer;
@@ -356,11 +358,11 @@
     let srcData = '';
     let inputData = '';
     if (srcEncoded !== null) {
-      srcData = c + paramNameSrc + '=' + srcEncoded;
+      srcData = c + PARAM_NAME.SRC + '=' + srcEncoded;
       c = '&';
     }
     if (inputEncoded !== null && inputEncoded !== '') {
-      inputData = c + paramNameInput + '=' + inputEncoded;
+      inputData = c + PARAM_NAME.INPUT + '=' + inputEncoded;
       c = '&';
     }
     elemTweet.setAttribute('data-url', href + srcData + inputData);
@@ -402,11 +404,11 @@
         for (const paravals of paravalsStr.split('&')) {
           const paraval = paravals.split('=');
           if (paraval.length === 2) {
-            if (paraval[0] === paramNameSrc) {
+            if (paraval[0] === PARAM_NAME.SRC) {
               const srcValue = decodeURIComponent(paraval[1]);
               editor.setValue(srcValue);
               editor.navigateTo(0, 0);
-            } else if (paraval[0] === paramNameInput) {
+            } else if (paraval[0] === PARAM_NAME.INPUT) {
               const inputValue = decodeURIComponent(paraval[1]);
               app.elems.input.value = inputValue;
             }
