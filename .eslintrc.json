@@ -12,6 +12,7 @@
   "globals": {
   },
   "rules": {
+    "array-bracket-spacing": "error",
     "arrow-body-style": ["error", "as-needed"],
     "arrow-parens": "error",
     "arrow-spacing": "error",
@@ -41,6 +42,7 @@
     "no-unneeded-ternary": "error",
     "no-unused-private-class-members": "error",
     "no-var": "error",
+    "object-curly-spacing": ["error", "always"],
     "object-shorthand": "error",
     "prefer-const": "error",
     "quotes": ["error", "single"],

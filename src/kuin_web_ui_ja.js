@@ -82,7 +82,7 @@
     }
     app.elems.output.value = '';
     removeLog();
-    const code = {S: ''};
+    const code = { S: '' };
     if (!included) {
       included = true;
       const scriptName = 'kuin_ja.js';
