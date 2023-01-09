@@ -422,7 +422,7 @@
   function enableButton() {
     isButtonEnable = true;
     app.elems.button.execute.innerHTML = '処理開始' +
-        '<img src="./images/kuin.png?2021-08-06" width="28" height="28" />';
+        '<img src="./images/kuin.png?2023.01.09" width="28" height="28" />';
     app.elems.button.execute.classList.remove('init');
     app.elems.button.execute.classList.remove('disable');
     app.elems.button.execute.classList.add('enable');
