@@ -348,7 +348,7 @@
     const elemTweet = document.createElement('a');
     elemTweet.setAttribute('href', 'https://twitter.com/share');
     elemTweet.setAttribute('class', 'twitter-share-button');
-    elemTweet.setAttribute('data-text', 'kuin-web');
+    elemTweet.setAttribute('data-text', '"kuin-web"');
     let href = location.href;
     const questionPos = href.search('\\?');
     if (questionPos !== -1) {
