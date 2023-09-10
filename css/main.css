@@ -36,12 +36,12 @@ h1 {
 #log {
   padding: 0;
   margin: 0;
-}
 
-#log li {
-  padding: 3px 10px;
-  list-style-type: none;
-  border-bottom: 1px solid #84b2e0;
+  & li {
+    padding: 3px 10px;
+    list-style-type: none;
+    border-bottom: 1px solid #84b2e0;
+  }
 }
 
 #input,
@@ -55,28 +55,30 @@ h1 {
   font-size: 20px;
   font-weight: bold;
   border-radius: 20px;
+
+  & img {
+    vertical-align: top;
+  }
 }
 
-#execute-button img {
-  vertical-align: top;
-}
+button {
+  &.init {
+    color: #000000;
+    background-color: #888888;
+    border: 2px solid #333333;
+  }
+  
+  &.enable {
+    color: #000000;
+    background-color: #aaffaa;
+    border: 3px solid #008000;
+  }
 
-button.init {
-  color: #000000;
-  background-color: #888888;
-  border: 2px solid #333333;
-}
-
-button.enable {
-  color: #000000;
-  background-color: #aaffaa;
-  border: 3px solid #008000;
-}
-
-button.disable {
-  color: #ffffff;
-  background-color: #db5671;
-  border: 3px solid #a8233e;
+  &.disable {
+    color: #ffffff;
+    background-color: #db5671;
+    border: 3px solid #a8233e;
+  }
 }
 
 .compile-error {
