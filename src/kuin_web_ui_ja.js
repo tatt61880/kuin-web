@@ -90,9 +90,7 @@
       const script = document.createElement('script');
       script.src = 'lib/' + scriptName + '?2021-09-17';
       script.onload = function () {
-        if (!this.readyState ||
-            this.readyState === 'loaded' ||
-            this.readyState === 'complete') {
+        if (!this.readyState || this.readyState === 'loaded' || this.readyState === 'complete') {
           addLog(scriptName + ' のロード完了。');
           const tmp = extra;
           extra = ['-v'];
@@ -116,9 +114,8 @@
     }
 
     function run(enable) {
-      kuin({ // eslint-disable-line no-undef
-        cmdLine:
-          ['-i', 'main.kn', '-s', 'res/sys/', '-e', target].concat(extra),
+      window.kuin({
+        cmdLine: ['-i', 'main.kn', '-s', 'res/sys/', '-e', target].concat(extra),
         readFile(p) {
           const srcValue = editor.getValue();
           if (p === './main.kn') {
@@ -140,18 +137,16 @@
           data.push(inputStr.charCodeAt(i));
         }
         let idx = 0;
-        const print =
-          function (s) {
-            app.elems.output.value += s;
-          };
-        const inputLetter =
-          function () {
-            if (idx < data.length) {
-              return data[idx++];
-            } else {
-              return 0xFFFF;
-            }
-          };
+        const print = function (s) {
+          app.elems.output.value += s;
+        };
+        const inputLetter = function () {
+          if (idx < data.length) {
+            return data[idx++];
+          } else {
+            return 0xffff;
+          }
+        };
         eval(`${code.S}
           if (typeof out !== 'undefined') {
             out({
@@ -172,29 +167,27 @@
       for (let i = 0; i < s.length; i++) {
         let data = s.charCodeAt(i);
         let u;
-        if ((data >> 7) === 0) {
+        if (data >> 7 === 0) {
           u = data;
           r = concat(r, Uint8Array.from([u & 0xff]));
         } else {
           u = (0x80 | (data & 0x3f)) << 8;
           data >>= 6;
-          if ((data >> 5) === 0) {
+          if (data >> 5 === 0) {
             u |= 0xc0 | data;
             r = concat(r, Uint8Array.from([u & 0xff, (u >> 8) & 0xff]));
           } else {
             u = (u | 0x80 | (data & 0x3f)) << 8;
             data >>= 6;
-            if ((data >> 4) === 0) {
+            if (data >> 4 === 0) {
               u |= 0xe0 | data;
-              r = concat(r, Uint8Array.from([u & 0xff, (u >> 8) & 0xff,
-                (u >> 16) & 0xff]));
+              r = concat(r, Uint8Array.from([u & 0xff, (u >> 8) & 0xff, (u >> 16) & 0xff]));
             } else {
               u = (u | 0x80 | (data & 0x3f)) << 8;
               data >>= 6;
-              if ((data >> 3) === 0) {
+              if (data >> 3 === 0) {
                 u |= 0xf0 | data;
-                r = concat(r, Uint8Array.from([u & 0xff, (u >> 8) & 0xff,
-                  (u >> 16) & 0xff, (u >> 24) & 0xff]));
+                r = concat(r, Uint8Array.from([u & 0xff, (u >> 8) & 0xff, (u >> 16) & 0xff, (u >> 24) & 0xff]));
               } else {
                 return r;
               }
@@ -257,12 +250,10 @@
 
   function addErrorHighlight(row, col) {
     const elemLines = elemAceTextLayer.getElementsByClassName('ace_line');
-    const firstRow = parseInt(elemLines[0].style.top) /
-        parseInt(elemLines[0].style.height);
+    const firstRow = parseInt(elemLines[0].style.top) / parseInt(elemLines[0].style.height);
     const lastRow = firstRow + elemLines.length - 1;
     if (firstRow <= row && row <= lastRow) {
-      const targetLeft =
-          editor.renderer.textToScreenCoordinates(row, col).pageX;
+      const targetLeft = editor.renderer.textToScreenCoordinates(row, col).pageX;
       const elems = elemLines[row - firstRow].children;
       for (const elem of elems) {
         const elemLeft = elem.getBoundingClientRect().x;
@@ -345,26 +336,32 @@
     while (app.elems.button.tweet.firstChild !== null) {
       app.elems.button.tweet.removeChild(app.elems.button.tweet.firstChild);
     }
+
     const elemTweet = document.createElement('a');
     elemTweet.setAttribute('href', 'https://twitter.com/share');
     elemTweet.setAttribute('class', 'twitter-share-button');
     elemTweet.setAttribute('data-text', '"kuin-web"');
+
     let href = location.href;
     const questionPos = href.search('\\?');
     if (questionPos !== -1) {
       href = href.substr(0, questionPos);
     }
+
     let c = '?';
     let srcData = '';
     let inputData = '';
+
     if (srcEncoded !== null) {
       srcData = c + PARAM_NAME.SRC + '=' + srcEncoded;
       c = '&';
     }
+
     if (inputEncoded !== null && inputEncoded !== '') {
       inputData = c + PARAM_NAME.INPUT + '=' + inputEncoded;
       c = '&';
     }
+
     elemTweet.setAttribute('data-url', href + srcData + inputData);
     elemTweet.setAttribute('data-hashtags', 'KuinWeb');
     elemTweet.appendChild(document.createTextNode('tweet'));
@@ -373,13 +370,37 @@
     twttr.widgets.load(); // eslint-disable-line no-undef
   }
 
+  function updateUndoRedoButtons() {
+    const undoManager = editor.session.getUndoManager();
+
+    app.elems.button.undo.disabled = !undoManager.hasUndo();
+    app.elems.button.redo.disabled = !undoManager.hasRedo();
+  }
+
   function init() {
     editor = ace.edit(app.elems.src); // eslint-disable-line no-undef
+
+    app.elems.button.undo.addEventListener('click', function () {
+      editor.undo();
+      editor.focus();
+      updateUndoRedoButtons();
+    });
+
+    app.elems.button.redo.addEventListener('click', function () {
+      editor.redo();
+      editor.focus();
+      updateUndoRedoButtons();
+    });
+
+    updateUndoRedoButtons();
+
     elemAceTextLayer = app.elems.src.getElementsByClassName('ace_text-layer')[0];
+
     const config = {
       childList: true,
       subtree: true,
     };
+
     const observer = new window.MutationObserver(updateErrorHighlight);
     observer.observe(elemAceTextLayer, config);
     editor.setOptions({
@@ -394,15 +415,19 @@
       minLines: 10,
       maxLines: 35,
     });
+
     editor.on('change', function () {
       errorPosNum = 0;
+      updateUndoRedoButtons();
     });
 
     {
       const paravalsStr = location.href.split('?')[1];
+
       if (paravalsStr !== undefined) {
         for (const paravals of paravalsStr.split('&')) {
           const paraval = paravals.split('=');
+
           if (paraval.length === 2) {
             if (paraval[0] === PARAM_NAME.SRC) {
               const srcValue = decodeURIComponent(paraval[1]);
@@ -415,14 +440,16 @@
           }
         }
       }
+
       updateTweetButton(null, null);
+
+      editor.session.getUndoManager().reset();
     }
   }
 
   function enableButton() {
     isButtonEnable = true;
-    app.elems.button.execute.innerHTML = '処理開始' +
-        '<img src="./images/kuin.png?2023.01.09" width="28" height="28" />';
+    app.elems.button.execute.innerHTML = '処理開始' + '<img src="./images/kuin.png?2023.01.09" width="28" height="28" />';
     app.elems.button.execute.classList.remove('init');
     app.elems.button.execute.classList.remove('disable');
     app.elems.button.execute.classList.add('enable');

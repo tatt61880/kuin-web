@@ -67,7 +67,7 @@ button {
     background-color: #888888;
     border: 2px solid #333333;
   }
-  
+
   &.enable {
     color: #000000;
     background-color: #aaffaa;
@@ -93,4 +93,22 @@ img.favicon {
   height: 16px;
   margin: 0 5px;
   vertical-align: middle;
+}
+
+.editor-buttons {
+  margin: 6px 10px 10px;
+}
+
+.editor-buttons button {
+  margin-right: 6px;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
+.editor-buttons button:disabled {
+  cursor: default;
+}
+
+#execute-button.enable {
+  cursor: pointer;
 }

@@ -18,6 +18,8 @@
     button: {
       execute: 'execute-button',
       tweet: 'tweet-button',
+      undo: 'undo-button',
+      redo: 'redo-button',
     },
   };
 
