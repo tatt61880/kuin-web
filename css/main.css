@@ -61,6 +61,10 @@ h1 {
   }
 }
 
+#execute-button.enable {
+  cursor: pointer;
+}
+
 button {
   &.init {
     color: #000000;
@@ -95,6 +99,22 @@ img.favicon {
   vertical-align: middle;
 }
 
+div.flex {
+  display: flex;
+}
+
+.editor-keys {
+  display: flex;
+  gap: 10px;
+  margin: 5px 0 5px 10px;
+}
+
+.editor-keys button {
+  width: 40px;
+  height: 40px;
+  font-size: 18px;
+}
+
 .editor-buttons {
   margin: 6px 10px 10px;
 }
@@ -106,9 +126,6 @@ img.favicon {
 }
 
 .editor-buttons button:disabled {
+  min-height: 40px;
   cursor: default;
-}
-
-#execute-button.enable {
-  cursor: pointer;
 }

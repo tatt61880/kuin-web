@@ -394,6 +394,30 @@
 
     updateUndoRedoButtons();
 
+    document.querySelectorAll('.editor-keys button').forEach((button) => {
+      button.addEventListener('pointerdown', (event) => {
+        event.preventDefault();
+
+        const key = button.dataset.key;
+        editor.focus();
+
+        switch (key) {
+          case 'ArrowLeft':
+            editor.navigateLeft();
+            break;
+          case 'ArrowRight':
+            editor.navigateRight();
+            break;
+          case 'ArrowUp':
+            editor.navigateUp();
+            break;
+          case 'ArrowDown':
+            editor.navigateDown();
+            break;
+        }
+      });
+    });
+
     elemAceTextLayer = app.elems.src.getElementsByClassName('ace_text-layer')[0];
 
     const config = {
