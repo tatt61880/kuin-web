@@ -113,7 +113,12 @@ div.flex {
   min-width: 40px;
   height: 40px;
   font-size: 18px;
+  touch-action: manipulation;
   cursor: pointer;
+  /* stylelint-disable-next-line property-no-vendor-prefix */
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
 }
 
 .editor-buttons {
