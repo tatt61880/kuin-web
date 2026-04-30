@@ -24,16 +24,6 @@
     <div id="main_ja" class="main">
       <div id="article">
         <h1><img class="favicon" src="./images/favicon.png?2023.01.09" alt="favicon">kuin-web</h1>
-        <pre id="src" style="height: 400px;">func main()
-	const max: int :: 101
-	do cui@print("\{max}以下の素数を出力します。\n")
-	for i(2, max)
-		if(math@prime(i))
-			do cui@print("\{i}\n")
-		end if
-	end for
-end func
-</pre>
 
         <div class="editor-buttons">
           <button id="undo-button" type="button">元に戻す</button>
@@ -51,6 +41,17 @@ end func
           <button type="button" data-action="delete">Del</button>
           <button type="button" data-action="tab">Tab</button>
         </div>
+
+        <pre id="src" style="height: 400px;">func main()
+	const max: int :: 101
+	do cui@print("\{max}以下の素数を出力します。\n")
+	for i(2, max)
+		if(math@prime(i))
+			do cui@print("\{i}\n")
+		end if
+	end for
+end func
+</pre>
 
         <div style="width:50%; float:left">
           <div class="block" style="text-indent:0; font-size:16px; margin:10px; border:0;">
