@@ -4,7 +4,7 @@
 <head>
   <title>kuin-web</title>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=870">
+  <meta name="viewport" content="width=650">
   <link rel="icon" href="./images/favicon.png?2023.01.09" type="image/png">
   <link rel="shortcut icon" href="./images/favicon.png?2023.01.09" type="image/png">
   <link rel="apple-touch-icon" sizes="180x180" href="./images/apple-touch-icon.png?2023.01.09">
@@ -35,8 +35,10 @@
           <button type="button" data-action="right">→</button>
           <button type="button" data-action="up">↑</button>
           <button type="button" data-action="down">↓</button>
+          <!-- 
           <button type="button" data-action="home">Home</button>
           <button type="button" data-action="end">End</button>
+           -->
           <button type="button" data-action="backspace">⌫</button>
           <button type="button" data-action="delete">Del</button>
           <button type="button" data-action="tab">Tab</button>
@@ -54,16 +56,18 @@ end func
 </pre>
 
         <div style="width:50%; float:left">
-          <div class="block" style="text-indent:0; font-size:16px; margin:10px; border:0;">
-            <button id="execute-button" type="button" class="init">-</button>&nbsp;&nbsp;
-            <select id="platform" style="font-size:18px; width:240px; height:40px;">
+          <div class="block" style="text-indent:0; margin:5px; border:0;">
+            <button id="execute-button" type="button" class="init">-</button>
+            <select id="platform">
               <option value="run" label="&nbsp;コンパイル＆実行" selected>&nbsp;コンパイル＆実行</option>
               <option value="cpp" label="&nbsp;C++出力">&nbsp;C++出力</option>
               <option value="web" label="&nbsp;HTML &amp; JavaScript出力">&nbsp;HTML &amp; JavaScript出力</option>
             </select>
           </div>
+
           <ul id="log">
           </ul>
+
           <p style="margin:5px;">
             (※ツイートボタンによって生成されるツイート中のURLには、最後に「処理開始」した際のコードと標準入力の情報を含みます。ただし、コードが長すぎるとボタンが正常に動作しないようです
             (おそらく2000字程度までは大丈夫だと思います)｡ <span id="tweet-button" style="display:inline; margin:5px"></span>)

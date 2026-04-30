@@ -8,7 +8,7 @@ body {
 
 #contents {
   position: relative;
-  width: 870px;
+  width: 650px;
   margin: 0 auto;
   overflow: hidden;
   background-color: white;
@@ -21,7 +21,7 @@ a:hover {
 
 h1 {
   margin: 0;
-  font-size: 18px;
+  font-size: 1.2rem;
   text-align: center;
   background-color: #aaffaa;
   border-top: 2px solid #8962b9;
@@ -36,6 +36,7 @@ h1 {
 #log {
   padding: 0;
   margin: 0;
+  font-size: 0.9rem;
 
   & li {
     padding: 3px 10px;
@@ -50,9 +51,9 @@ h1 {
 }
 
 #execute-button {
-  width: 150px;
+  width: 140px;
   height: 60px;
-  font-size: 20px;
+  font-size: 1.2rem;
   font-weight: bold;
   border-radius: 20px;
 
@@ -63,6 +64,13 @@ h1 {
 
 #execute-button.enable {
   cursor: pointer;
+}
+
+#platform {
+  width: 165px;
+  height: 40px;
+  margin-left: 5px;
+  font-size: 0.8rem;
 }
 
 button {
@@ -110,8 +118,8 @@ div.flex {
 }
 
 .editor-keys button {
-  min-width: 60px;
-  height: 60px;
+  min-width: 80px;
+  height: 70px;
   font-size: 1.2rem;
   touch-action: manipulation;
   cursor: pointer;
@@ -126,9 +134,9 @@ div.flex {
 }
 
 .editor-buttons button {
-  min-width: 120px;
-  height: 60px;
-  margin-right: 6px;
+  min-width: 170px;
+  height: 70px;
+  margin-right: 5px;
   font-size: 1.2rem;
   touch-action: manipulation;
   cursor: pointer;
@@ -140,4 +148,8 @@ div.flex {
 
 .editor-buttons button:disabled {
   cursor: default;
+}
+
+.spacer {
+  height: 10px;
 }
