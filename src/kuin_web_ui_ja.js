@@ -398,21 +398,35 @@
       button.addEventListener('pointerdown', (event) => {
         event.preventDefault();
 
-        const key = button.dataset.key;
         editor.focus();
 
-        switch (key) {
-          case 'ArrowLeft':
+        switch (button.dataset.action) {
+          case 'left':
             editor.navigateLeft();
             break;
-          case 'ArrowRight':
+          case 'right':
             editor.navigateRight();
             break;
-          case 'ArrowUp':
+          case 'up':
             editor.navigateUp();
             break;
-          case 'ArrowDown':
+          case 'down':
             editor.navigateDown();
+            break;
+          case 'home':
+            editor.navigateLineStart();
+            break;
+          case 'end':
+            editor.navigateLineEnd();
+            break;
+          case 'backspace':
+            editor.remove('left');
+            break;
+          case 'delete':
+            editor.remove('right');
+            break;
+          case 'tab':
+            editor.indent();
             break;
         }
       });
