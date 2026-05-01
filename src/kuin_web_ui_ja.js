@@ -377,16 +377,83 @@
     app.elems.button.redo.disabled = !undoManager.hasRedo();
   }
 
+  function addRepeatAction(button, action, options = {}) {
+    const firstDelay = options.firstDelay ?? 350;
+    const interval = options.interval ?? 80;
+
+    let timeoutId = null;
+    let intervalId = null;
+    let pointerId = null;
+    let repeated = false;
+
+    const clearTimers = () => {
+      if (timeoutId !== null) {
+        clearTimeout(timeoutId);
+        timeoutId = null;
+      }
+      if (intervalId !== null) {
+        clearInterval(intervalId);
+        intervalId = null;
+      }
+      pointerId = null;
+    };
+
+    button.addEventListener('pointerdown', (event) => {
+      if (event.button !== 0) {
+        return;
+      }
+
+      if (button.disabled) {
+        return;
+      }
+
+      event.preventDefault();
+
+      pointerId = event.pointerId;
+      repeated = false;
+      button.setPointerCapture(pointerId);
+
+      timeoutId = setTimeout(() => {
+        repeated = true;
+        action();
+
+        intervalId = setInterval(() => {
+          if (button.disabled) {
+            clearTimers();
+            return;
+          }
+
+          action();
+        }, interval);
+      }, firstDelay);
+    });
+
+    button.addEventListener('pointerup', (event) => {
+      if (event.pointerId !== pointerId) {
+        return;
+      }
+
+      clearTimers();
+
+      if (!repeated && !button.disabled) {
+        action();
+      }
+    });
+
+    button.addEventListener('pointercancel', clearTimers);
+    button.addEventListener('lostpointercapture', clearTimers);
+  }
+
   function init() {
     editor = ace.edit(app.elems.src); // eslint-disable-line no-undef
 
-    app.elems.button.undo.addEventListener('click', function () {
+    addRepeatAction(app.elems.button.undo, () => {
       editor.undo();
       editor.focus();
       updateUndoRedoButtons();
     });
 
-    app.elems.button.redo.addEventListener('click', function () {
+    addRepeatAction(app.elems.button.redo, () => {
       editor.redo();
       editor.focus();
       updateUndoRedoButtons();
