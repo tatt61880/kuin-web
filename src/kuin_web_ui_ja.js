@@ -484,6 +484,25 @@
       });
     }
 
+    const copyAllButton = document.getElementById('copy-all-button');
+
+    copyAllButton.addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(editor.getValue());
+
+        copyAllButton.textContent = 'コピーしました';
+
+        setTimeout(() => {
+          copyAllButton.textContent = '全コピー';
+        }, 1000);
+
+        editor.focus();
+      } catch (error) {
+        console.error(error);
+        alert('コピーに失敗しました。');
+      }
+    });
+
     elemAceTextLayer = app.elems.src.getElementsByClassName('ace_text-layer')[0];
 
     const config = {
