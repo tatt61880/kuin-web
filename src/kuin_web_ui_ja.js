@@ -446,6 +446,7 @@
 
   function init() {
     editor = ace.edit(app.elems.src); // eslint-disable-line no-undef
+    editor.setShowInvisibles(true);
 
     addRepeatAction(app.elems.button.undo, () => {
       editor.undo();

@@ -15,6 +15,12 @@ body {
   border-bottom: 2px solid #8962b9;
 }
 
+/* stylelint-disable-next-line selector-class-pattern */
+#src .ace_invisible {
+  color: #ff9393;
+  opacity: 0.2;
+}
+
 a:hover {
   opacity: 0.5;
 }
