@@ -21,6 +21,11 @@ body {
   opacity: 0.2;
 }
 
+/* stylelint-disable-next-line selector-class-pattern */
+.ace_editor .ace_invisible_eol {
+  display: none;
+}
+
 a:hover {
   opacity: 0.5;
 }
