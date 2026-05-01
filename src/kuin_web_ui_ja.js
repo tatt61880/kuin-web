@@ -461,43 +461,28 @@
 
     updateUndoRedoButtons();
 
-    document.querySelectorAll('.editor-keys button').forEach((button) => {
-      button.addEventListener('pointerdown', (event) => {
-        event.preventDefault();
+    const editorKeys = [
+      ['key-left', () => editor.navigateLeft()],
+      ['key-right', () => editor.navigateRight()],
+      ['key-up', () => editor.navigateUp()],
+      ['key-down', () => editor.navigateDown()],
+      ['key-backspace', () => editor.execCommand('backspace')],
+      ['key-del', () => editor.execCommand('del')],
+      ['key-tab', () => editor.execCommand('indent')],
+    ];
 
+    for (const [buttonId, action] of editorKeys) {
+      const button = document.getElementById(buttonId);
+
+      if (button === null) {
+        continue;
+      }
+
+      addRepeatAction(button, () => {
+        action();
         editor.focus();
-
-        switch (button.dataset.action) {
-          case 'left':
-            editor.navigateLeft();
-            break;
-          case 'right':
-            editor.navigateRight();
-            break;
-          case 'up':
-            editor.navigateUp();
-            break;
-          case 'down':
-            editor.navigateDown();
-            break;
-          case 'home':
-            editor.navigateLineStart();
-            break;
-          case 'end':
-            editor.navigateLineEnd();
-            break;
-          case 'backspace':
-            editor.remove('left');
-            break;
-          case 'delete':
-            editor.remove('right');
-            break;
-          case 'tab':
-            editor.indent();
-            break;
-        }
       });
-    });
+    }
 
     elemAceTextLayer = app.elems.src.getElementsByClassName('ace_text-layer')[0];
 
