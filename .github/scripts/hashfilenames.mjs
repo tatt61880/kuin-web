@@ -53,7 +53,7 @@ function main() {
 
   function shouldSkipHash(absPath) {
     const rel = path.relative(distDir, absPath).split(path.sep).join('/');
-    return rel.startsWith('src-noconflict/');
+    return rel.startsWith('src-noconflict/') || rel.startsWith('lib/');
   }
 
   for (const abs of files) {
