@@ -1,7 +1,7 @@
 {
   "ignorePatterns": [
-    "lib/**/*.js",
-    "src-noconflict/**/*.js"
+    "lib/**",
+    "src-noconflict/**"
   ],
   "parser": "@babel/eslint-parser",
   "parserOptions": {
