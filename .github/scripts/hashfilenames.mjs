@@ -51,7 +51,14 @@ function main() {
   // mapping: "path/in/html.js" -> "path/in/html.<hash>.js"
   const mapping = new Map();
 
+  function shouldSkipHash(absPath) {
+    const rel = path.relative(distDir, absPath).split(path.sep).join('/');
+    return rel.startsWith('src-noconflict/');
+  }
+
   for (const abs of files) {
+    if (shouldSkipHash(abs)) continue;
+
     const ext = path.extname(abs).toLowerCase();
     if (!extsToHash.has(ext)) continue;
 
