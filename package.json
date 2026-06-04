@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "kuin-web",
-  "version": "1.0.1",
+  "version": "2.0.0",
   "description": "kuin-web",
   "repository": {
     "type": "git",
@@ -11,16 +11,19 @@
   "bugs": {
     "url": "https://github.com/tatt61880/kuin-web/issues"
   },
+  "homepage": "https://tatt61880.github.io/kuin-web/",
   "scripts": {
-    "eslint": "eslint ./src/*.js --fix",
+    "lint": "npm run eslint && npm run htmlhint && npm run stylelint",
+    "eslint": "eslint eslint.config.js ./src/*.js --fix",
     "htmlhint": "htmlhint ./*.html",
     "stylelint": "stylelint ./css/*.css --fix"
   },
   "devDependencies": {
-    "@babel/core": "^7.18.10",
-    "@babel/eslint-parser": "^7.18.9",
-    "eslint": "^8.21.0",
+    "@eslint/js": "^10.0.1",
+    "eslint": "^10.4.1",
+    "globals": "^17.6.0",
     "htmlhint": "^1.1.4",
+    "prettier": "^2.8.2",
     "stylelint": "^15.10.1",
     "stylelint-config-recess-order": "^4.2.0",
     "stylelint-config-standard": "^34.0.0"

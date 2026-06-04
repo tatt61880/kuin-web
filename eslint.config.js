@@ -1,0 +1,95 @@
+const js = require('@eslint/js');
+const globals = require('globals');
+
+module.exports = [
+  {
+    ignores: ['html/**', 'submissions/**'],
+  },
+  js.configs.recommended,
+  {
+    files: ['eslint.config.js'],
+    languageOptions: {
+      ecmaVersion: 2021,
+      sourceType: 'commonjs',
+      globals: {
+        ...globals.node,
+      },
+    },
+  },
+  {
+    files: ['.github/scripts/*.mjs'],
+    languageOptions: {
+      ecmaVersion: 2021,
+      sourceType: 'module',
+      globals: {
+        ...globals.node,
+      },
+    },
+    rules: {
+      'no-console': 'off',
+    },
+  },
+  {
+    files: ['src/*.js', 'lib/*.js'],
+    languageOptions: {
+      ecmaVersion: 2021,
+      sourceType: 'script',
+      globals: {
+        ...globals.browser,
+        ...globals.node,
+      },
+    },
+    rules: {
+      'array-bracket-spacing': 'error',
+      'arrow-body-style': ['error', 'as-needed'],
+      'arrow-parens': 'error',
+      'arrow-spacing': 'error',
+      camelcase: 'error',
+      'comma-spacing': 'error',
+      'computed-property-spacing': 'error',
+      'dot-notation': 'error',
+      'eol-last': 'error',
+      eqeqeq: 'error',
+      'func-call-spacing': ['error', 'never'],
+      indent: ['error', 2, { SwitchCase: 1 }],
+      'key-spacing': 'error',
+      'keyword-spacing': 'error',
+      'new-cap': 'error',
+      'newline-per-chained-call': ['error', { ignoreChainWithDepth: 2 }],
+      'no-console': 'off',
+      'no-constant-condition': ['error', { checkLoops: false }],
+      'no-empty': ['error', { allowEmptyCatch: true }],
+      'no-extra-semi': 'error',
+      'no-floating-decimal': 'error',
+      'no-implicit-coercion': 'error',
+      'no-implicit-globals': 'error',
+      'no-invalid-this': 'error',
+      'no-multi-spaces': 'error',
+      'no-multi-str': 'error',
+      'no-multiple-empty-lines': ['error', { max: 1, maxEOF: 0 }],
+      'no-new': 'error',
+      'no-octal': 'error',
+      'no-param-reassign': 'error',
+      'no-trailing-spaces': 'error',
+      'no-undef-init': 'error',
+      'no-underscore-dangle': 'error',
+      'no-unexpected-multiline': 'error',
+      'no-unneeded-ternary': 'error',
+      'no-unused-private-class-members': 'error',
+      'no-useless-escape': 'error',
+      'no-var': 'error',
+      'no-whitespace-before-property': 'error',
+      'object-curly-spacing': ['error', 'always'],
+      'object-shorthand': 'error',
+      'prefer-const': 'error',
+      semi: 'error',
+      'space-before-blocks': ['error', 'always'],
+      'space-before-function-paren': [
+        'error',
+        { anonymous: 'always', named: 'never', asyncArrow: 'always' },
+      ],
+      'space-infix-ops': 'error',
+      'spaced-comment': 'error',
+    },
+  },
+];
