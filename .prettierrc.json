@@ -1,6 +1,6 @@
 {
   "endOfLine": "auto",
-  "printWidth": 140,
+  "printWidth": 80,
   "singleQuote": true,
   "semi": true
 }
