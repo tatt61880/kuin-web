@@ -3,7 +3,7 @@ const globals = require('globals');
 
 module.exports = [
   {
-    ignores: ['html/**', 'submissions/**'],
+    ignores: ['lib/**', 'src-noconflict/**'],
   },
   js.configs.recommended,
   {
@@ -84,10 +84,7 @@ module.exports = [
       'prefer-const': 'error',
       semi: 'error',
       'space-before-blocks': ['error', 'always'],
-      'space-before-function-paren': [
-        'error',
-        { anonymous: 'always', named: 'never', asyncArrow: 'always' },
-      ],
+      'space-before-function-paren': ['error', { anonymous: 'always', named: 'never', asyncArrow: 'always' }],
       'space-infix-ops': 'error',
       'spaced-comment': 'error',
     },

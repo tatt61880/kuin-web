@@ -39,9 +39,7 @@ function splitUrl(url) {
 }
 
 function isSkippableUrl(base) {
-  return (
-    base === '' || base.startsWith('//') || /^[a-z][a-z0-9+.-]*:/i.test(base)
-  );
+  return base === '' || base.startsWith('//') || /^[a-z][a-z0-9+.-]*:/i.test(base);
 }
 
 function resolveAssetPath(htmlFilePath, base) {
@@ -65,23 +63,18 @@ function processHtml(filePath, mapping) {
   const htmlDir = path.dirname(filePath);
 
   // src/href の値だけを置換対象にする（雑に全文置換しない）
-  html = html.replace(
-    /\b(src|href)\s*=\s*(["'])([^"']+)\2/gi,
-    (m, attr, quote, url) => {
-      const { base, tail } = splitUrl(url); // ? や # 以降を残す
-      if (isSkippableUrl(base)) return m;
+  html = html.replace(/\b(src|href)\s*=\s*(["'])([^"']+)\2/gi, (m, attr, quote, url) => {
+    const { base, tail } = splitUrl(url); // ? や # 以降を残す
+    if (isSkippableUrl(base)) return m;
 
-      const abs = resolveAssetPath(filePath, base);
-      const newAbs = mapping.get(toWebPath(abs));
-      if (!newAbs) return m;
+    const abs = resolveAssetPath(filePath, base);
+    const newAbs = mapping.get(toWebPath(abs));
+    if (!newAbs) return m;
 
-      const replaced = base.startsWith('/')
-        ? '/' + toWebPath(newAbs)
-        : toRelativeWebPath(htmlDir, newAbs, base.startsWith('./'));
+    const replaced = base.startsWith('/') ? '/' + toWebPath(newAbs) : toRelativeWebPath(htmlDir, newAbs, base.startsWith('./'));
 
-      return `${attr}=${quote}${replaced}${tail}${quote}`;
-    }
-  );
+    return `${attr}=${quote}${replaced}${tail}${quote}`;
+  });
 
   fs.writeFileSync(filePath, html, 'utf8');
 }
