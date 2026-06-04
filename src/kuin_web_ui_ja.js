@@ -359,7 +359,6 @@
 
     if (inputEncoded !== null && inputEncoded !== '') {
       inputData = c + PARAM_NAME.INPUT + '=' + inputEncoded;
-      c = '&';
     }
 
     elemTweet.setAttribute('data-url', href + srcData + inputData);
