@@ -24,8 +24,8 @@
     "globals": "^17.6.0",
     "htmlhint": "^1.1.4",
     "prettier": "^2.8.2",
-    "stylelint": "^15.10.1",
+    "stylelint": "^17.14.1",
     "stylelint-config-recess-order": "^4.2.0",
-    "stylelint-config-standard": "^34.0.0"
+    "stylelint-config-standard": "^40.0.0"
   }
 }
