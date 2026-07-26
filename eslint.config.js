@@ -9,7 +9,7 @@ module.exports = [
   {
     files: ['eslint.config.js'],
     languageOptions: {
-      ecmaVersion: 2021,
+      ecmaVersion: 2022,
       sourceType: 'commonjs',
       globals: {
         ...globals.node,
@@ -19,7 +19,7 @@ module.exports = [
   {
     files: ['.github/scripts/*.mjs'],
     languageOptions: {
-      ecmaVersion: 2021,
+      ecmaVersion: 2022,
       sourceType: 'module',
       globals: {
         ...globals.node,
@@ -32,7 +32,7 @@ module.exports = [
   {
     files: ['src/*.js', 'lib/*.js'],
     languageOptions: {
-      ecmaVersion: 2021,
+      ecmaVersion: 2022,
       sourceType: 'script',
       globals: {
         ...globals.browser,
@@ -84,7 +84,10 @@ module.exports = [
       'prefer-const': 'error',
       semi: 'error',
       'space-before-blocks': ['error', 'always'],
-      'space-before-function-paren': ['error', { anonymous: 'always', named: 'never', asyncArrow: 'always' }],
+      'space-before-function-paren': [
+        'error',
+        { anonymous: 'always', named: 'never', asyncArrow: 'always' },
+      ],
       'space-infix-ops': 'error',
       'spaced-comment': 'error',
     },
